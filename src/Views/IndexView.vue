@@ -8,7 +8,7 @@
     <!-- 放在粒子背景的外部的导航 -->
     <div class="content">
       <el-row :gutter="10">
-        <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1">
+        <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1" style="height: 100%;">
 <!--          logo-->
           <div class="logo" >
             <el-image src='/static/logo6.png' alt="logo" class="img1"></el-image>
@@ -20,7 +20,7 @@
               active-text-color="#ffd04b"
               background-color="rgba(0, 0, 0,1)"
               text-color="#999"
-              style="width: 100%;border: none"
+              style="width: 100%;border: none ;height: 100%"
 
           >
             <template v-for="(item, index) in menuItems" :key="index">
@@ -157,6 +157,18 @@ export default {
           icon: 'icon-class-name',
           children: null
         },
+        {
+          route: '/tts_replace',
+          text: '声音置换',
+          icon: 'icon-class-name',
+          children: null
+        },
+        {
+          route: '/tts_teacher',
+          text: 'AI教师',
+          icon: 'icon-class-name',
+          children: null
+        },
       ]
     }
   }
@@ -164,6 +176,9 @@ export default {
 </script>
 
 <style>
+.el-col{
+  height: 100%;
+}
 .content {
   position: relative;
   background-color: rgba(0, 0, 0, 0.5) !important;

@@ -31,6 +31,18 @@ const routes = [
                 hidden: false,
                 component: () => import("@/Views/TTSTESTView.vue"),
             },
+            {
+                path: "tts_replace",
+                name: "声音置换",
+                hidden: false,
+                component: () => import("@/Views/TTSREPLACEView.vue"),
+            },
+            {
+                path: "tts_teacher",
+                name: "AI教师",
+                hidden: false,
+                component: () => import("@/Views/TTSTEACHERView.vue"),
+            },
         ],
     },
     {
