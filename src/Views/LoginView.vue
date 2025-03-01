@@ -7,8 +7,8 @@
     <!-- Header Section -->
     <header>
       <div class="logo">
-        <img src='../../src/assets/static/logo6.png' alt="logo" class="img1">
-        <img src='../../src/assets/static/title.png' alt="logo" class="img2">
+        <img src='/static/logo6.png' alt="logo" class="img1">
+        <img src='/static/title.png' alt="logo" class="img2">
       </div>
       <div v-for="(item, index) in menuItems" :key="index" class="p1">
         <p>{{ item.text }}</p>

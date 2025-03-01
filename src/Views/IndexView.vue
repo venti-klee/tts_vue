@@ -8,11 +8,11 @@
     <!-- 放在粒子背景的外部的导航 -->
     <div class="content">
       <el-row :gutter="10">
-        <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1" style="height: 100%;">
+        <el-col :xs="8" :sm="6" :md="6" :lg="4" :xl="1" style="height: 100%;">
 <!--          logo-->
           <div class="logo" >
-            <el-image src='/static/logo6.png' alt="logo" class="img1"></el-image>
-            <el-image src='/static/title.png' alt="logo" class="img2"></el-image>
+            <el-image src='/static/logo6.png' alt="logo" class="img1" :fit="contain"></el-image>
+            <el-image src='/static/title.png' alt="logo" class="img2" :fit="contain"></el-image>
           </div>
           <el-menu
               router
@@ -20,7 +20,8 @@
               active-text-color="#ffd04b"
               background-color="rgba(0, 0, 0,1)"
               text-color="#999"
-              style="width: 100%;border: none ;height: 100%"
+              style="width: 100%;border: none ;height: 100vh
+"
 
           >
             <template v-for="(item, index) in menuItems" :key="index">
@@ -46,8 +47,32 @@
             </template>
           </el-menu>
         </el-col>
-        <el-col :xs="16" :sm="18" :md="20" :lg="21" :xl="23">
-          <router-view></router-view>
+        <el-col :xs="16" :sm="18" :md="18" :lg="20" :xl="23">
+            <div class="common-layout">
+              <el-container>
+                <el-header style="text-align: right; font-size: 12px">
+                  <div class="toolbar">
+                    <el-dropdown @command="handleCommand">
+                      <el-icon style="margin-right: 8px; margin-top: 1px"><user-filled /></el-icon>
+                      <span>用户</span>
+                      <template #dropdown>
+                        <el-dropdown-menu>
+                          <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+                        </el-dropdown-menu>
+                      </template>
+                    </el-dropdown>
+                  </div>
+                </el-header>
+                <el-main style="width: 100%" >
+                  <div>
+                    <router-view style="width: 100%"></router-view>
+                  </div>
+
+                </el-main>
+              </el-container>
+            </div>
+
+
         </el-col>
       </el-row>
     </div>
@@ -55,7 +80,12 @@
 </template>
 
 <script>
+import {UserFilled} from "@element-plus/icons-vue";
+import {ElMessage} from "element-plus";
+import {useRouter} from "vue-router";
+
 export default {
+  components: {UserFilled},
   data() {
     return {
       particlesOptions: {
@@ -171,7 +201,28 @@ export default {
         },
       ]
     }
-  }
+  },
+  setup() {
+    const router = useRouter();
+
+    const handleCommand = (command) => {
+      if (command === 'logout') {
+        handleLogout();
+      }
+    };
+
+    const handleLogout = () => {
+      // 显示退出成功消息
+      ElMessage.success('退出登录成功');
+
+      // 跳转到登录页面
+      router.push('/login'); // 假设登录路由为'/login'
+    };
+
+    return {
+      handleCommand,
+    };
+  },
 }
 </script>
 
@@ -183,15 +234,17 @@ export default {
   position: relative;
   background-color: rgba(0, 0, 0, 0.5) !important;
   z-index: 10; /* 确保内容在粒子背景的上方 */
-  top: 0;
-  left: 0;
-  width: 100%;
   height: 100%;
   color: white;
   padding: 0;
   margin: 0;
-}
 
+}
+*{
+  margin: 0;
+  padding: 0;
+
+}
 #tsparticles {
   position: absolute;
   top: 0;
@@ -215,14 +268,20 @@ export default {
   transition: background-color 0.3s ease; /* 添加过渡效果 */
   padding: 0;
   margin: 0;
+  height: 100vh;
+  overflow: hidden;
 }
 .img1{
-  height:50px;
-  width:50px;
+  margin-left: 10px;
+  margin-top: 15px;
+  height:40px;
+
 }
 .img2{
-  height:40px;
-  margin-left:5px;
+  height:35px;
+  margin-left: 5px;
+  margin-top: 15px;
+
 
 }
 </style>

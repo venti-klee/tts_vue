@@ -7,9 +7,13 @@ import Particles from "@tsparticles/vue3";
 import { loadSlim } from "@tsparticles/slim";
 import router from './router/router';
 import IndexView from '@/Views/IndexView.vue';
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+
 console.log(IndexView); // 如果路径正确，这里会输出组件定义
 const app = createApp(App);
-
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component)
+}
 // 使用 ElementPlus
 app.use(ElementPlus);
 
