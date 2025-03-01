@@ -1,18 +1,30 @@
+// src/main.js
 import { createApp } from 'vue';
 import App from './App.vue';
-import ElementPlus from 'element-plus'; // 注意：ElementUI 在 Vue 3 中应使用 ElementPlus
-import 'element-plus/dist/index.css'; // 引入 ElementPlus 的样式文件
+import ElementPlus from 'element-plus';
+import 'element-plus/dist/index.css';
 import Particles from "@tsparticles/vue3";
 import { loadSlim } from "@tsparticles/slim";
-// 创建 Vue 应用实例
+import router from './router/router';
+import IndexView from '@/Views/IndexView.vue';
+console.log(IndexView); // 如果路径正确，这里会输出组件定义
 const app = createApp(App);
+
 // 使用 ElementPlus
 app.use(ElementPlus);
 
-// 使用 Particles
+// 使用 Vue Router
+app.use(router);
+
+// 使用 tsparticles
 app.use(Particles, {
     init: async engine => {
-        await loadSlim(engine); // 加载 tsParticles 的 slim 版本
+        try {
+            await loadSlim(engine);
+            console.log("tsParticles loaded successfully!");
+        } catch (error) {
+            console.error("Failed to load tsParticles:", error);
+        }
     },
 });
 
