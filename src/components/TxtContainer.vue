@@ -46,6 +46,7 @@ import { ref, computed } from "vue";
 import { ElMessage } from 'element-plus';
 import 'element-plus/dist/index.css';
 
+// eslint-disable-next-line no-undef
 const emit = defineEmits(["update:textContent"]); // 定义自定义事件
 const fileList = ref([]); // 用于存储文件列表
 const textData = ref(""); // 用于存储文件内容
