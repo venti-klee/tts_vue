@@ -2,7 +2,7 @@
   <div class="audio-settings">
     <el-form>
       <el-form-item label="语言">
-        <el-select v-model="audioSettings.language" placeholder="选择语言">
+        <el-select v-model="audioSettings.language" placeholder="选择语言" @change="handleLanguageChange">
           <el-option
               v-for="language in languages"
               :key="language.value"
@@ -57,7 +57,7 @@
             show-stops
             :marks="speedMarks"
         ></el-slider>
-<!--        <el-slider v-model="audioSettings.speed" :min="0.1" :max="2" :step="0.1"></el-slider>-->
+        <!--        <el-slider v-model="audioSettings.speed" :min="0.1" :max="2" :step="0.1"></el-slider>-->
       </el-form-item>
 
       <el-form-item label="停顿">
@@ -73,7 +73,7 @@
 
 <script setup>
 import { ref, defineEmits, watch } from 'vue';
-
+import eventBus from '../eventBus.js'; // 引入事件总线
 const emit = defineEmits(['update:audio-settings']);
 // 定义速度标记
 const speedMarks = {
@@ -84,6 +84,9 @@ const speedMarks = {
 
 const languages = ref([
   { value: 'zh-CN', label: '中文' },
+  { value: 'en', label: '英语' },
+  { value: 'ja', label: '日语' },
+  { value: 'ko', label: '韩语' }
   // 其他语言选项...
 ]);
 const emotions = ref([
@@ -100,7 +103,7 @@ const styles = ref([
 ]);
 
 const audioSettings = ref({
-  language: '',
+  language: 'zh-CN',
   emotion: '',
   pitch: '',
   style: '',
@@ -109,7 +112,10 @@ const audioSettings = ref({
   pause: 0.5,
   volume: 1,
 });
-
+const handleLanguageChange = (lang) => {
+  eventBus.setLanguage(lang); // 通过事件总线发送语言变化
+  emit('update:audio-settings', { ...audioSettings.value });
+};
 const updateAudioSettings = () => {
   console.log('Emitting audio settings:', { ...audioSettings.value });
   emit('update:audio-settings', { ...audioSettings.value });

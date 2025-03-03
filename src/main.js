@@ -8,6 +8,10 @@ import { loadSlim } from "@tsparticles/slim";
 import router from './router/router';
 import IndexView from '@/Views/IndexView.vue';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import { AVPlugin } from "vue-audio-visual";
+
+
+
 
 console.log(IndexView); // 如果路径正确，这里会输出组件定义
 const app = createApp(App);
@@ -19,6 +23,8 @@ app.use(ElementPlus);
 
 // 使用 Vue Router
 app.use(router);
+//使用 vue-audio-visual
+app.use(AVPlugin);
 
 // 使用 tsparticles
 app.use(Particles, {
