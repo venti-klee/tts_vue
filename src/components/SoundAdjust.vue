@@ -49,7 +49,15 @@
       </el-form-item>
 
       <el-form-item label="速度">
-        <el-slider v-model="audioSettings.speed" :min="0.1" :max="2" :step="0.1"></el-slider>
+        <el-slider
+            v-model="audioSettings.speed"
+            :min="0"
+            :max="2"
+            :step="1"
+            show-stops
+            :marks="speedMarks"
+        ></el-slider>
+<!--        <el-slider v-model="audioSettings.speed" :min="0.1" :max="2" :step="0.1"></el-slider>-->
       </el-form-item>
 
       <el-form-item label="停顿">
@@ -67,6 +75,13 @@
 import { ref, defineEmits, watch } from 'vue';
 
 const emit = defineEmits(['update:audio-settings']);
+// 定义速度标记
+const speedMarks = {
+  0: '慢速',
+  1: '正常',
+  2: '快速'
+};
+
 const languages = ref([
   { value: 'zh-CN', label: '中文' },
   // 其他语言选项...
