@@ -27,8 +27,7 @@
 
 <script setup>
 import {ref, computed, watch} from 'vue';
-import eventBus from "@/eventBus"; // 假设eventBus已经正确配置和引入
-
+import eventBus from "@/eventBus";
 const fileList = ref([]);
 const teachingContent = ref('');
 const languagesMap = {
