@@ -36,13 +36,13 @@ const handleVoiceSelect = (selectedVoiceData) => {
 
       <!--声音样本-->
       <el-row>
-        <voice-selector @select-voice="handleVoiceSelect"></voice-selector>
+        <voice-selector class="voice-select-container" @select-voice="handleVoiceSelect"></voice-selector>
       </el-row>
     </el-col>
     <!--音频设置-->
     <el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10" >
       <div>
-        <sound-adjust @update:audio-settings="handleAudioSettings"></sound-adjust>
+        <sound-adjust class="sound-adjust-cotainer" @update:audio-settings="handleAudioSettings"></sound-adjust>
       </div>
       <!-- <div>
       <h3>音频设置参数：</h3>
@@ -52,8 +52,8 @@ const handleVoiceSelect = (selectedVoiceData) => {
   </el-row>
 
   <!--音频输出-->
-  <el-row>
-    <aduio-show></aduio-show>
+  <el-row class="audio-show">
+    <aduio-show ></aduio-show>
   </el-row>
 <!--  音频输出-->
 <!--  测试传参-->
@@ -70,7 +70,23 @@ const handleVoiceSelect = (selectedVoiceData) => {
 
 <style scoped>
   .custom-text-container{
-    boder: 1px solid red;
+    margin-left:40px;
+    width:680px;
+    margin-top:25px;
+  }
+  .voice-select-container{
+    margin-left:40px;
+    width:680px;
+    margin-top:-70px;
+  }
+  .sound-adjust-cotainer{
+    margin-right:60px;
+    margin-left:-10px;
+    margin-top:30px;
+  }
+  .audio-show{
+    margin-top:30px;
+    margin-left:40px;
   }
 
 </style>

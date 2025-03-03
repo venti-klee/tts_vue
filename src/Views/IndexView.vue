@@ -284,8 +284,8 @@ a {
   position: absolute;  /* 绝对定位 */
   top: 10px;            /* 距离父元素顶部 20px */
   right: 20px;          /* 距离父元素右边 20px */
-  height: 35px;
-  width: 35px;
+  height: 30px;
+  width: 30px;
   z-index: 999;          /* 确保 img3 在其他内容上方显示 */
   cursor: pointer;
 }
