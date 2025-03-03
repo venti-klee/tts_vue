@@ -9,7 +9,7 @@
           :before-upload="beforeUpload"
       >
         <span>教学内容</span>
-        <el-button type="primary">上传</el-button>
+        <el-button type="primary" class="upload-btn">上传</el-button>
       </el-upload>
     </el-row>
     <el-row>
@@ -137,6 +137,36 @@ const toggleRepeat = () => {
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
+
+  span{
+    background-color:transparent;
+    color:#767A7D;
+    font-size:18px;
+  }
+  .upload-btn {
+    margin-left:320px;
+    background-color: #25AEBF;  /* 按钮背景色 */
+    color: white;  /* 字体颜色 */
+    width: 69px;                  /* 宽度 600px */
+    height: 30px;                  /* 高度 500px */
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;               /* 使用 flex 布局 */
+    justify-content: center;     /* 水平居中 */
+    align-items: center;         /* 垂直居中 */
+    cursor: pointer;  /* 鼠标悬停变成小手 */
+    font-size: 18px;  /* 字体大小 */
+    transition: background-color 0.2s ease;
+    border:none;
+    }
+    .upload-btn:hover{
+      background-color: #1D94A4;  /* 鼠标悬停时背景颜色稍微变暗 */
+    }
+
+
 }
 
 .config-buttons {

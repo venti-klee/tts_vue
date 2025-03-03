@@ -27,27 +27,31 @@ const handleVoiceSelect = (selectedVoiceData) => {
 
 <template>
 <div>
-    <el-row>
-      <el-col :xs="24" :sm="14" :md="14" :lg="14" :xl="14">
-<!--        文本-->
-        <el-row>
-          <txt-container @update:textContent="handleTextContent"></txt-container>
-        </el-row>
-<!--        声音样本-->
+  <el-row>
+    <el-col :xs="24" :sm="14" :md="14" :lg="14" :xl="14">
+      <!--文本-->
+      <el-row>
+        <txt-container  class="custom-text-container" @update:textContent="handleTextContent"></txt-container>
+      </el-row>
+
+      <!--声音样本-->
       <el-row>
         <voice-selector @select-voice="handleVoiceSelect"></voice-selector>
       </el-row>
-      </el-col>
-        <el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10" >
-          <div>
+    </el-col>
+    <!--音频设置-->
+    <el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10" >
+      <div>
         <sound-adjust @update:audio-settings="handleAudioSettings"></sound-adjust>
-          </div>
-<!--          <div>-->
-<!--            <h3>音频设置参数：</h3>-->
-<!--            <pre>{{ audioSettings }}</pre>-->
-<!--          </div>-->
-        </el-col>
-    </el-row>
+      </div>
+      <!-- <div>
+      <h3>音频设置参数：</h3>
+      <pre>{{ audioSettings }}</pre>
+    </div> -->
+    </el-col>
+  </el-row>
+
+  <!--音频输出-->
   <el-row>
     <aduio-show></aduio-show>
   </el-row>
@@ -65,5 +69,8 @@ const handleVoiceSelect = (selectedVoiceData) => {
 </template>
 
 <style scoped>
+  .custom-text-container{
+    boder: 1px solid red;
+  }
 
 </style>
