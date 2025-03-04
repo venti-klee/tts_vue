@@ -230,23 +230,29 @@ const toggleRepeat = () => {
     top: 10px;
     left: 0;
     width: 100%;
-    height: 70px;
-    background-color: #3C434B;
+    height: 65px;
+    background-color: rgba(60, 67, 75, 1);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     z-index: 2;
+    border-top: 0.5px solid rgba(255,255,255,0.3);
+    border-left: 0.5px solid rgba(255,255,255,0.3);
   }
   textarea {
     margin-top: 10px;
     resize: none;
     width: 100%;
     max-width: 680px;
-    background-color:#3C434B;
+    background-color:rgba(60, 67, 75, 0.66);
     color:white;
     border-radius: 10px;
     border:none;
     padding:70px 10px 10px 10px;
-  }
+    backdrop-filter: blur(5px);
+    border-top: 0.5px solid rgba(255,255,255,0.3);
+    border-left: 0.5px solid rgba(255,255,255,0.3);
+    box-shadow: -6px -6px 16px 0 rgba(255, 255, 255, 0.14), -3px -3px 6px -4px rgba(255, 255, 255, 0.08);
+    }
   
   .word-count {
     position:absolute;

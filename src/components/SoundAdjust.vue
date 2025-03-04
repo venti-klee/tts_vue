@@ -208,13 +208,17 @@ watch(audioSettings, () => {
   margin-top: 10px;
   resize: none;
   width: 100%;
-  background-color:#3C434B;
+  background-color: rgba(60, 67, 75, 0.66);
+  backdrop-filter: blur(5px);
   color:white;
   border-radius: 10px;
   border:none;
   padding:70px 10px 10px 10px;
   flex-direction: column; /* 纵向排列 */
   gap: 10px; /* 控制表单项间距 */
+  border-top: 0.5px solid rgba(255,255,255,0.3);
+  border-left: 0.5px solid rgba(255,255,255,0.3);
+  box-shadow: -6px -6px 16px 0 rgba(255, 255, 255, 0.14), -3px -3px 6px -4px rgba(255, 255, 255, 0.08);
   .set-item{
     position:relative;
     margin-bottom:23px;
@@ -240,6 +244,15 @@ watch(audioSettings, () => {
   .select-container{
     width: 150px !important; /* 统一下拉框宽度 */
     margin-left:20px;
+    background-color:transparent;
+  }
+  .el-select-dropdown {
+    background-color: white !important; /* 让下拉列表背景保持白色 */
+  }
+  .el-select__wrapper el-tooltip__trigger el-tooltip__trigger {
+    background-color: transparent !important; /* 让输入框背景透明 */
+    border: 1px solid #ccc; /* 可选，保持边框 */
+    color: #fff; /* 文字颜色，确保可读 */
   }
   .el-slider{
     width: 300px !important; /* 统一滑块宽度 */

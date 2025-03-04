@@ -72,7 +72,7 @@ const handleVoiceSelect = (selectedVoiceData) => {
   .custom-text-container{
     margin-left:40px;
     width:680px;
-    margin-top:25px;
+    margin-top:15px;
   }
   .voice-select-container{
     margin-left:40px;
@@ -82,7 +82,7 @@ const handleVoiceSelect = (selectedVoiceData) => {
   .sound-adjust-cotainer{
     margin-right:60px;
     margin-left:-10px;
-    margin-top:30px;
+    margin-top:20px;
   }
   .audio-show{
     margin-top:30px;

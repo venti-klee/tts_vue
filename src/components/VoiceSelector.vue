@@ -31,27 +31,27 @@
     </div>
 
     <!-- 新建声音样本弹窗 -->
-    <el-dialog
+    <el-dialog class="dialog"
         v-model="dialogVisible"
         title="新建声音样本"
         width="500px"
-        :before-close="handleClose">
+        >
       <el-form>
         <el-form-item label="声音名称">
           <el-input v-model="newVoiceName"></el-input>
         </el-form-item>
-        <el-form-item label="上传声音文件">
+        <el-form-item label="上传声音">
           <el-upload
               action="#"
               list-type="text"
               :on-change="handleAudioChange"
               :auto-upload="false">
-            <el-button type="primary">上传音频</el-button>
+            <el-button class="btn1" type="primary">上传音频</el-button>
           </el-upload>
         </el-form-item>
         <el-form-item label="现场录音">
-          <el-button type="primary" @click="startRecording" v-if="!isRecording">开始录音</el-button>
-          <el-button type="warning" @click="stopRecording" v-else>停止录音</el-button>
+          <el-button class="btn1" type="primary" @click="startRecording" v-if="!isRecording">开始录音</el-button>
+          <el-button class="btn1" type="warning" @click="stopRecording" v-else>停止录音</el-button>
         </el-form-item>
         <el-form-item label="上传封面图片">
           <el-upload
@@ -60,14 +60,17 @@
               :on-change="handleImageChange"
               :auto-upload="false"
           >
+          <div class="upload-content">
             <i class="el-icon-plus"></i>
+            <p>点击上传</p>
+          </div>
           </el-upload>
         </el-form-item>
       </el-form>
       <template #footer>
         <div class="dialog-footer">
           <el-button @click="cancelDialog">取消</el-button>
-          <el-button type="primary" @click="addVoice">确定</el-button>
+          <el-button class="btn1" type="primary" @click="addVoice">确定</el-button>
         </div>
       </template>
     </el-dialog>
@@ -235,14 +238,17 @@ const resetForm = () => {
 .voice-selector {
   padding: 0px;
   .voice-list {
+    border-top: 0.5px solid rgba(255,255,255,0.3);
+    border-left: 0.5px solid rgba(255,255,255,0.3);
+    box-shadow: -6px -6px 16px 0 rgba(255, 255, 255, 0.14), -3px -3px 6px -4px rgba(255, 255, 255, 0.08);
     overflow-y: auto; /* 允许纵向滚动 */
     height:230px;
     margin-top:5px;
     display: flex;
     flex-wrap: wrap;
-    background-color: #3C434B;
+    background-color: rgba(60, 67, 75, 0.66);
+    backdrop-filter: blur(5px);
     border-radius: 10px;
-    border:none;
     padding:10px 22px 10px 22px;
     .voice-item {
       margin: 10px 12px;
@@ -309,6 +315,32 @@ const resetForm = () => {
     }
   }
 }
-
+:deep(.el-dialog){
+    padding:0;
+}
+:deep(.dialog .el-dialog__header) {
+    background-color: #f0f0f0; /* 设置灰色背景 */
+    text-align: center; /* 让标题居中 */
+    padding: 10px; /* 调整内边距 */
+    border-top-left-radius: 8px; /* 圆角优化 */
+    border-top-right-radius: 8px;
+}
+.dialog .el-dialog__title {
+    font-weight: bold; /* 标题加粗 */
+    font-size: 18px; /* 调整字体大小 */
+}
+:deep(.dialog .el-dialog__body) {
+    padding: 20px; /* 调整内边距 */
+}
+:deep(el-dialog__footer){
+  margin-top:-20px;
+}
+.dialog-footer {
+    padding: 20px 20px; /* 调整内边距 */
+}
+.btn1{
+  background-color: #25AEBF;
+  border:none;
+}
 
 </style>
