@@ -5,89 +5,63 @@
         id="tsparticles"
         :options="particlesOptions"
     ></vue-particles>
-    <!-- 放在粒子背景的外部的导航 -->
     <div class="content">
-      <el-row :gutter="10">
-        <el-col :xs="8" :sm="6" :md="6" :lg="4" :xl="1" style="height: 100%;">
-<!--          logo-->
-          <div class="logo" >
-            <el-image src='/static/logo6.png' alt="logo" class="img1" :fit="contain"></el-image>
-            <el-image src='/static/title.png' alt="logo" class="img2" :fit="contain"></el-image>
-          </div>
-          <el-menu
-              router
-              :default-active="$route.path"
-              active-text-color="#ffd04b"
-              background-color="rgba(0, 0, 0,1)"
-              text-color="#999"
-              style="width: 100%;border: none ;height: 100vh
-"
+      <!-- 左侧导航栏 -->
+      <div class="left-menu">
+        <div class="logo">
+          <img src="/static/logo6.png" alt="logo" class="img1">
+          <img src="/static/title.png" alt="logo" class="img2">
+        </div>
+        
+        <ul class="menu-list">
+          <li v-for="(item, index) in menuItems" 
+              :key="index" 
+              :class="['menu-item', { active: isActive(item.route) }]">
+            <router-link :to="item.route" class="menu-link">
+              <i :class="item.icon"></i>
+              <span>{{ item.text }}</span>
+            </router-link>
+          </li>
+        </ul>
+        
+      </div>
+      <!-- 右侧内容区 -->
+      <div class="main-content">
+        <router-view></router-view> <!-- 这里显示对应的组件 -->
+        <div class="dropdown"  ref="dropdown">
+            <img src="/static/个人.png" alt="logo" class="img3"  @click="toggleDropdown">
+            <ul class="dropdown-menu" v-show="dropdownVisible">
+                <li @click="goToLogin">退出登录</li>
+            </ul>
+        </div> 
+        
+        <!-- 教学内容和声音样本库 -->
+        <div class="left-top">
 
-          >
-            <template v-for="(item, index) in menuItems" :key="index">
-              <el-sub-menu v-if="item.children && item.children.length" :index="item.route || ''">
-                <template #title>
-                  <el-icon><component :is="item.icon || 'i'"></component></el-icon>{{ item.text }}
-                </template>
-                <el-menu-item
-                    v-for="child in item.children"
-                    :key="child.name"
-                    :index="child.route || ''"
-                >
-                  <template #title>
-                    <el-icon><component :is="child.icon || 'i'"></component></el-icon>{{ child.text }}
-                  </template>
-                </el-menu-item>
-              </el-sub-menu>
-              <el-menu-item v-else :index="item.route || ''">
-                <template #title>
-                  <el-icon><component :is="item.icon || 'i'"></component></el-icon>{{ item.text }}
-                </template>
-              </el-menu-item>
-            </template>
-          </el-menu>
-        </el-col>
-        <el-col :xs="16" :sm="18" :md="18" :lg="20" :xl="23">
-            <div class="common-layout">
-              <el-container>
-                <el-header style="text-align: right; font-size: 12px">
-                  <div class="toolbar">
-                    <el-dropdown @command="handleCommand">
-                      <el-icon style="margin-right: 8px; margin-top: 1px"><user-filled /></el-icon>
-                      <span>用户</span>
-                      <template #dropdown>
-                        <el-dropdown-menu>
-                          <el-dropdown-item command="logout">退出登录</el-dropdown-item>
-                        </el-dropdown-menu>
-                      </template>
-                    </el-dropdown>
-                  </div>
-                </el-header>
-                <el-main style="width: 100%" >
-                  <div>
-                    <router-view style="width: 100%"></router-view>
-                  </div>
+        </div>
+        <!-- 音频设置 -->
+        <div class="right-top">
 
-                </el-main>
-              </el-container>
-            </div>
+        </div>
+        <!-- 音频播放器 -->
+        <div class="main-bottom">
 
+        </div>
+      </div>
 
-        </el-col>
-      </el-row>
     </div>
   </div>
 </template>
 
 <script>
-import {UserFilled} from "@element-plus/icons-vue";
-import {ElMessage} from "element-plus";
-import {useRouter} from "vue-router";
+// import {UserFilled} from "@element-plus/icons-vue";
+// import {ElMessage} from "element-plus";
+// import {useRouter} from "vue-router";
 
 export default {
-  components: {UserFilled},
   data() {
     return {
+      dropdownVisible: false, // 控制下拉菜单的显示和隐藏
       particlesOptions: {
         background: {
           image: "linear-gradient(to top,#242b35 60%, #1B1F27FF 80%)",
@@ -202,49 +176,67 @@ export default {
       ]
     }
   },
-  setup() {
-    const router = useRouter();
-
-    const handleCommand = (command) => {
-      if (command === 'logout') {
-        handleLogout();
+  methods: {
+    isActive(route) {
+      return this.$route.path === route;  // 判断当前路由是否与 menuItem 的 route 相匹配
+    },
+    // 切换下拉菜单显示
+    toggleDropdown(event) {
+      this.dropdownVisible = !this.dropdownVisible;
+      event.stopPropagation(); // 阻止点击事件冒泡
+    },
+    
+    // 跳转到 LoginView
+    goToLogin() {
+      this.$router.push({ name: '登录' });  // 使用路由跳转到 LoginView
+      this.dropdownVisible = false; // 关闭下拉菜单
+    },
+    
+    // 监听点击事件，点击外部区域关闭下拉菜单
+    handleClickOutside(event) {
+      const dropdown = this.$refs.dropdown;  // 获取 dropdown 组件
+      if (dropdown && !dropdown.contains(event.target)) {
+        this.dropdownVisible = false; // 点击外部区域时关闭下拉菜单
       }
-    };
-
-    const handleLogout = () => {
-      // 显示退出成功消息
-      ElMessage.success('退出登录成功');
-
-      // 跳转到登录页面
-      router.push('/login'); // 假设登录路由为'/login'
-    };
-
-    return {
-      handleCommand,
-    };
+    }
   },
+  mounted() {
+    document.addEventListener('click', this.handleClickOutside);  // 监听全局点击事件
+  },
+
+  beforeUnmount() {
+    document.removeEventListener('click', this.handleClickOutside);  // 组件销毁时移除事件监听
+  },
+
 }
 </script>
 
 <style>
+a {
+    text-decoration: none;
+}
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none; /* 去掉列表项前的圆点 */
+}
 .el-col{
   height: 100%;
 }
 .content {
   position: relative;
-  background-color: rgba(0, 0, 0, 0.5) !important;
+  display:flex;
+  background-color: rgba(0,0,0, 0.5)  !important;
   z-index: 10; /* 确保内容在粒子背景的上方 */
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
   color: white;
   padding: 0;
   margin: 0;
-
 }
-*{
-  margin: 0;
-  padding: 0;
 
-}
 #tsparticles {
   position: absolute;
   top: 0;
@@ -255,13 +247,13 @@ export default {
   padding:0;
 }
 .logo{
-  background-color: rgba(0, 0, 0, 1); /* 半透明黑色背景 */
+  background-color: transparent; 
   transition: background-color 0.3s ease; /* 添加过渡效果 */
   display: flex;
   align-items:center;
-  margin-left:0;
+  margin-left:10px;
+  margin-top:0px;
   width:100%;
-  position: relative;
 }
 .index{
   background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
@@ -271,17 +263,105 @@ export default {
   height: 100vh;
 
 }
+.left-menu{
+  width: 220px;
+  height: 100%;
+  background-color: rgb(75, 88, 98,0.65);
+  padding: 20px 0;
+  transition: width 0.3s ease; /* 添加过渡效果 */
+}
 .img1{
-  margin-left: 10px;
-  margin-top: 15px;
-  height:40px;
-
+  left:10px;
+  height:38px;
+  width:38px;
 }
 .img2{
-  height:35px;
-  margin-left: 5px;
-  margin-top: 15px;
-
+  height:40px;
+  margin-left:5px;
 
 }
+.img3 {
+  position: absolute;  /* 绝对定位 */
+  top: 10px;            /* 距离父元素顶部 20px */
+  right: 20px;          /* 距离父元素右边 20px */
+  height: 30px;
+  width: 30px;
+  z-index: 999;          /* 确保 img3 在其他内容上方显示 */
+  cursor: pointer;
+}
+.el-col {
+  width:500px;
+}
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style-type: none; /* 去掉列表项前的圆点 */
+  font-size:18px;
+}
+
+.menu-item {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+  opacity: 0.8;
+  position: relative; /* 为了可以定位子元素 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-link {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none; /* 去掉下划线 */
+  padding: 15px 10px;
+}
+.menu-item:hover .menu-link,
+.menu-item.active .menu-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #4B5862; 
+  transition: background-color 0.2s ease;
+  width: 80%;
+  border-radius: 10px;
+}
+.main-content {
+  position: relative;  /* 使 img3 可以相对于 .main-content 定位 */
+  width: calc(100% - 220px);  /* 让右侧内容区占满剩余空间 */
+  height:100vh;
+}
+.dropdown{
+  position: absolute; /* 绝对定位 */
+  top: 0px; /* 固定在右上角 */
+  right: 00px;
+}
+/* 下拉菜单默认隐藏 */
+.dropdown-menu {
+  /* display: none; */
+  position: absolute;
+  margin-top: 50px; /* 让下拉框出现在头像下方 */
+  margin-right:10px;
+  right: 10px;
+  background-color: #4B5862;
+  color:white;
+  border-radius: 8px;
+  padding: 8px 5px;
+  width: 100px;
+  height:25px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 999; 
+  }
+  /* 菜单选项 */
+  .dropdown-menu li {
+    list-style: none;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+
 </style>

@@ -1,47 +1,57 @@
 <template>
   <div class="voice-selector">
     <!-- 克隆声音开关 -->
-    <el-switch v-model="isCloned" active-text="克隆人声" inactive-text="标准音"></el-switch>
+    <div class="switch-container">
+      <p>克隆人声</p>
+      <el-switch 
+      v-model="isCloned" 
+      :active-value="true"
+      :inactive-value="false"
+      :size="100"
+      class="custom-switch"></el-switch>
+      <p>标准音</p>
+    </div>
 
     <!-- 声音样本列表 -->
     <div class="voice-list">
       <div v-for="(voice, index) in voices" :key="index" class="voice-item" @click="selectVoice(voice)">
         <el-radio v-model="selectedVoiceId" :label="voice.name" class="radio">{{ '' }}</el-radio>
-        <img :src="voice.image" alt="voice image" class="voice-image">
-        <div class="voice-name">{{ voice.name }}</div>
-        <el-button @click.stop="playVoice(voice)" type="primary" icon="el-icon-music">试听</el-button>
+        <img class="voice-image" :src="voice.image" alt="voice image" >
+        <div class="btn-container">
+          <div class="voice-name">{{ voice.name }}</div>
+          <img class="voice-btn" src="/static/播放.png" @click.stop="playVoice(voice)" alt="pic">
+        </div>
       </div>
+
       <div class="voice-add" @click="dialogVisible = true">
         <img :src="require('@/assets/static/加.png')" alt="add voice image" class="voice-image">
         <div class="voice-name">新建声音</div>
-        <el-button type="primary" icon="el-icon-plus" @click.stop="dialogVisible = true">新增</el-button>
+        <!-- <el-button class="voice-btn2" type="primary" icon="el-icon-plus" @click.stop="dialogVisible = true">新增</el-button> -->
       </div>
     </div>
 
     <!-- 新建声音样本弹窗 -->
-    <el-dialog
+    <el-dialog class="dialog"
         v-model="dialogVisible"
         title="新建声音样本"
         width="500px"
-        :before-close="handleClose"
-    >
+        >
       <el-form>
         <el-form-item label="声音名称">
           <el-input v-model="newVoiceName"></el-input>
         </el-form-item>
-        <el-form-item label="上传声音文件">
+        <el-form-item label="上传声音">
           <el-upload
               action="#"
               list-type="text"
               :on-change="handleAudioChange"
-              :auto-upload="false"
-          >
-            <el-button type="primary">上传音频</el-button>
+              :auto-upload="false">
+            <el-button class="btn1" type="primary">上传音频</el-button>
           </el-upload>
         </el-form-item>
         <el-form-item label="现场录音">
-          <el-button type="primary" @click="startRecording" v-if="!isRecording">开始录音</el-button>
-          <el-button type="warning" @click="stopRecording" v-else>停止录音</el-button>
+          <el-button class="btn1" type="primary" @click="startRecording" v-if="!isRecording">开始录音</el-button>
+          <el-button class="btn1" type="warning" @click="stopRecording" v-else>停止录音</el-button>
         </el-form-item>
         <el-form-item label="上传封面图片">
           <el-upload
@@ -50,14 +60,17 @@
               :on-change="handleImageChange"
               :auto-upload="false"
           >
+          <div class="upload-content">
             <i class="el-icon-plus"></i>
+            <p>点击上传</p>
+          </div>
           </el-upload>
         </el-form-item>
       </el-form>
       <template #footer>
         <div class="dialog-footer">
           <el-button @click="cancelDialog">取消</el-button>
-          <el-button type="primary" @click="addVoice">确定</el-button>
+          <el-button class="btn1" type="primary" @click="addVoice">确定</el-button>
         </div>
       </template>
     </el-dialog>
@@ -74,8 +87,14 @@ const emit = defineEmits(['select-voice'])
 
 const isCloned = ref(false)
 const voices = ref([
-  { name: '亲切女声', image: require('@/assets/static/vox.jpg'), audio: require('@/assets/static/audios/audio1.wav') },
-  { name: '小张学姐', image: require('@/assets/static/vox.jpg'), audio: require('@/assets/static/audios/audio2.wav') },
+  { name: '女老师', image: require('@/assets/static/女老师.jpg'), audio: require('@/assets/static/audios/audio1.wav') },
+  { name: '小张学姐', image: require('@/assets/static/学姐.jpg'), audio: require('@/assets/static/audios/audio1.wav') },
+  { name: '小女孩', image: require('@/assets/static/小女孩.jpg'), audio: require('@/assets/static/audios/audio1.wav') },
+  { name: '温柔姐姐', image: require('@/assets/static/大姐姐.jpg'), audio: require('@/assets/static/audios/audio1.wav') },
+  { name: '男老师', image: require('@/assets/static/男老师.jpg'), audio: require('@/assets/static/audios/audio1.wav') },
+  { name: '小杨学长', image: require('@/assets/static/学长.jpg'), audio: require('@/assets/static/audios/audio1.wav') },
+  { name: '小男孩', image: require('@/assets/static/小男孩.jpg'), audio: require('@/assets/static/audios/audio1.wav') },
+  { name: '阳光男高', image: require('@/assets/static/男高.jpg'), audio: require('@/assets/static/audios/audio1.wav') },
 ])
 const dialogVisible = ref(false)
 const newVoiceName = ref('')
@@ -193,41 +212,135 @@ const resetForm = () => {
 
 
 <style scoped>
+.switch-container{
+  margin-left:20px;
+  display:flex;
+  
+  align-items: center;
+  color: #767A7D;
+  font-size:18px;
+  gap:10px;
+}
+
+/* 禁用状态（默认） */
+:deep(.el-switch__core) {
+  width:40px;
+  height:10px;
+  background-color: #E2E2E3 !important;
+  border: none !important; /* 去掉边框 */
+}
+
+/* 启用状态 */
+.el-switch.is-checked :deep(.el-switch__core) {
+  background-color: #25AEBF !important;
+}
+
 .voice-selector {
-  padding: 20px;
+  padding: 0px;
+  .voice-list {
+    border-top: 0.5px solid rgba(255,255,255,0.3);
+    border-left: 0.5px solid rgba(255,255,255,0.3);
+    box-shadow: -6px -6px 16px 0 rgba(255, 255, 255, 0.14), -3px -3px 6px -4px rgba(255, 255, 255, 0.08);
+    overflow-y: auto; /* 允许纵向滚动 */
+    height:230px;
+    margin-top:5px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgba(60, 67, 75, 0.66);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    padding:10px 22px 10px 22px;
+    .voice-item {
+      margin: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      cursor: pointer;
+      .btn-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap:5px;
+      }
+      .voice-btn{
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+      }
+
+      .voice-name {
+        padding:5px 0px 5px 0px;
+        font-size:14px;
+      }
+    }
+    .voice-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 10%;
+      object-fit: cover;
+    }
+    .voice-add{
+      margin: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      cursor: pointer;
+      .voice-btn2{
+        margin-top:5px;
+        width:60px;
+        height:25px;
+        display: flex;
+        align-items: center;
+        background-color: #25AEBF;
+        border:none;
+      }
+      .voice-name {
+        padding:5px 0px 5px 0px;
+        font-size:14px;
+      }
+    }
+    .radio {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+
+    .voice-add {
+      margin: 10px;
+      cursor: pointer;
+    }
+  }
+}
+:deep(.el-dialog){
+    padding:0;
+}
+:deep(.dialog .el-dialog__header) {
+    background-color: #f0f0f0; /* 设置灰色背景 */
+    text-align: center; /* 让标题居中 */
+    padding: 10px; /* 调整内边距 */
+    border-top-left-radius: 8px; /* 圆角优化 */
+    border-top-right-radius: 8px;
+}
+.dialog .el-dialog__title {
+    font-weight: bold; /* 标题加粗 */
+    font-size: 18px; /* 调整字体大小 */
+}
+:deep(.dialog .el-dialog__body) {
+    padding: 20px; /* 调整内边距 */
+}
+:deep(el-dialog__footer){
+  margin-top:-20px;
+}
+.dialog-footer {
+    padding: 20px 20px; /* 调整内边距 */
+}
+.btn1{
+  background-color: #25AEBF;
+  border:none;
 }
 
-.voice-list {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.voice-item {
-  margin: 10px;
-  text-align: center;
-  position: relative;
-  cursor: pointer;
-}
-
-.radio {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-}
-
-.voice-image {
-  width: 100px;
-  height: 100px;
-  border-radius: 10%;
-  object-fit: cover;
-}
-
-.voice-name {
-  margin-top: 10px;
-}
-
-.voice-add {
-  margin: 10px;
-  cursor: pointer;
-}
 </style>

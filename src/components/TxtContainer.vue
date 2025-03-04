@@ -9,21 +9,39 @@
           :before-upload="beforeUpload"
       >
         <span>教学内容</span>
-        <el-button type="primary">上传</el-button>
+        <el-button type="primary" class="upload-btn">上传</el-button>
       </el-upload>
     </el-row>
     <el-row>
       <!-- 配置图标按钮 -->
       <div class="config-buttons">
-        <button @click="insertText('</pause>')">插入停顿</button>
-        <button @click="toggleRepeat">连续播放</button>
-        <button @click="insertText('<childVoice>')">儿化音</button>
-        <button @click="insertText('<date>')">插入日期</button>
-        <button @click="insertText('<breath>')">换气声</button>
-        <button @click="insertText('<laughter>')">插入笑声</button>
+        <div class="config-button-item">
+          <img src="/static/暂停.png" alt="pic" class="img1">
+          <button @click="insertText('</pause>')">插入停顿</button>
+        </div>
+        <div class="config-button-item">
+          <img src="/static/加载小.png" alt="pic" class="img1">
+          <button @click="toggleRepeat">连续播放</button>
+        </div>
+        <div class="config-button-item">
+          <img src="/static/headphones.png" alt="pic" class="img1">
+          <button @click="insertText('<childVoice>')">儿化音</button>
+        </div>
+        <div class="config-button-item">
+          <img src="/static/时间.png" alt="pic" class="img1">
+          <button @click="insertText('<date>')">插入日期</button>
+        </div>
+        <div class="config-button-item">
+          <img src="/static/呼气.png" alt="pic" class="img1">
+          <button @click="insertText('<breath>')">换气声</button>
+        </div>
+        <div class="config-button-item">
+          <img src="/static/笑脸.png" alt="pic" class="img1">
+          <button @click="insertText('<laughter>')">插入笑声</button>
+        </div>
       </div>
     </el-row>
-    <el-row>
+    <el-row class="text-area">
       <!-- 文本框用于展示文件内容 -->
       <textarea
           v-model="textData"
@@ -35,7 +53,7 @@
       ></textarea>
       <!-- 显示文字数量 -->
       <div class="word-count">
-        共：{{ effectiveWordCount }} / 2000 字
+        共&nbsp;{{ effectiveWordCount }} / 2000 字
       </div>
     </el-row>
   </div>
@@ -132,33 +150,122 @@ const toggleRepeat = () => {
 </script>
 
 <style scoped>
+  button {
+    margin: 0 5px;
+  }
 .upload-container {
+  justify-content: space-between;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  
   margin-top: 20px;
+  width:680px;
+  span{
+    background-color:transparent;
+    color:#767A7D;
+    font-size:18px;
+    margin-left:20px;
+  }
+  .upload-btn {
+    margin-left:500px;
+    background-color: #25AEBF;  /* 按钮背景色 */
+    color: white;  /* 字体颜色 */
+    width: 69px;                  /* 宽度 600px */
+    height: 30px;                  /* 高度 500px */
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;               /* 使用 flex 布局 */
+    justify-content: center;     /* 水平居中 */
+    align-items: center;         /* 垂直居中 */
+    cursor: pointer;  /* 鼠标悬停变成小手 */
+    font-size: 16px;  /* 字体大小 */
+    transition: background-color 0.2s ease;
+    border:none;
+  }
+  .upload-btn:hover{
+    background-color: #1D94A4; 
+  }
+  .config-buttons{
+    display: flex;
+    margin-top: 15px;
+    background-color:transparent;
+    color:white;
+    z-index:999;
+    padding-bottom:10px;
+    border-bottom: 1px solid #767A7D;
+    width:100%
+  }
+  .config-button-item{
+    margin-left:30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .img1{
+      width:23px;
+      height:23px;
+    }
+    button{
+      background-color:transparent;
+      color:white;
+      border:none;
+      outline: none; /* 移除点击时的轮廓线 */
+      box-shadow: none; /* 移除可能的阴影 */
+    }
+  }
+  .text-area{
+    position:relative;
+    padding:0;
+    margin:0;
+    width:100%;
+    top:-75px;
+    height:250px;
+  }
+  .text-area::before{
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 100%;
+    height: 65px;
+    background-color: rgba(60, 67, 75, 1);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    z-index: 2;
+    border-top: 0.5px solid rgba(255,255,255,0.3);
+    border-left: 0.5px solid rgba(255,255,255,0.3);
+  }
+  textarea {
+    margin-top: 10px;
+    resize: none;
+    width: 100%;
+    max-width: 680px;
+    background-color:rgba(60, 67, 75, 0.66);
+    color:white;
+    border-radius: 10px;
+    border:none;
+    padding:70px 10px 10px 10px;
+    backdrop-filter: blur(5px);
+    border-top: 0.5px solid rgba(255,255,255,0.3);
+    border-left: 0.5px solid rgba(255,255,255,0.3);
+    box-shadow: -6px -6px 16px 0 rgba(255, 255, 255, 0.14), -3px -3px 6px -4px rgba(255, 255, 255, 0.08);
+    }
+  
+  .word-count {
+    position:absolute;
+    bottom: -25px;
+    right:10px;
+    font-size: 14px;
+    color: #666;
+  }
 }
 
-.config-buttons {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-}
 
-button {
-  margin: 0 5px;
-}
 
-textarea {
-  margin-top: 10px;
-  resize: none;
-  width: 100%;
-  max-width: 600px;
-}
 
-.word-count {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #666;
-}
+
+
 </style>

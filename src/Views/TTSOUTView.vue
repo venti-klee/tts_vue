@@ -27,29 +27,33 @@ const handleVoiceSelect = (selectedVoiceData) => {
 
 <template>
 <div>
-    <el-row>
-      <el-col :xs="24" :sm="14" :md="14" :lg="14" :xl="14">
-<!--        文本-->
-        <el-row>
-          <txt-container @update:textContent="handleTextContent"></txt-container>
-        </el-row>
-<!--        声音样本-->
-      <el-row>
-        <voice-selector @select-voice="handleVoiceSelect"></voice-selector>
-      </el-row>
-      </el-col>
-        <el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10" >
-          <div>
-        <sound-adjust @update:audio-settings="handleAudioSettings"></sound-adjust>
-          </div>
-<!--          <div>-->
-<!--            <h3>音频设置参数：</h3>-->
-<!--            <pre>{{ audioSettings }}</pre>-->
-<!--          </div>-->
-        </el-col>
-    </el-row>
   <el-row>
-    <aduio-show></aduio-show>
+    <el-col :xs="24" :sm="14" :md="14" :lg="14" :xl="14">
+      <!--文本-->
+      <el-row>
+        <txt-container  class="custom-text-container" @update:textContent="handleTextContent"></txt-container>
+      </el-row>
+
+      <!--声音样本-->
+      <el-row>
+        <voice-selector class="voice-select-container" @select-voice="handleVoiceSelect"></voice-selector>
+      </el-row>
+    </el-col>
+    <!--音频设置-->
+    <el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10" >
+      <div>
+        <sound-adjust class="sound-adjust-cotainer" @update:audio-settings="handleAudioSettings"></sound-adjust>
+      </div>
+      <!-- <div>
+      <h3>音频设置参数：</h3>
+      <pre>{{ audioSettings }}</pre>
+    </div> -->
+    </el-col>
+  </el-row>
+
+  <!--音频输出-->
+  <el-row class="audio-show">
+    <aduio-show ></aduio-show>
   </el-row>
 <!--  音频输出-->
 <!--  测试传参-->
@@ -65,5 +69,24 @@ const handleVoiceSelect = (selectedVoiceData) => {
 </template>
 
 <style scoped>
+  .custom-text-container{
+    margin-left:40px;
+    width:680px;
+    margin-top:15px;
+  }
+  .voice-select-container{
+    margin-left:40px;
+    width:680px;
+    margin-top:-70px;
+  }
+  .sound-adjust-cotainer{
+    margin-right:60px;
+    margin-left:-10px;
+    margin-top:20px;
+  }
+  .audio-show{
+    margin-top:30px;
+    margin-left:40px;
+  }
 
 </style>
