@@ -44,8 +44,8 @@ import {ref, onMounted, computed, watch} from 'vue';
 import parseSrt from 'parse-srt';
 
 // 定义音频和字幕文件路径，假设文件位于 public 文件夹内
-const audioSrc = '/static/sft_output_长文本.wav'; // 确保此路径指向 public 文件夹内的文件
-const srtSrc = '/static/sft_output_长文本.srt';   // 同上
+const audioSrc = '/static/讲稿1_cosy_声音样本1.wav'; // 确保此路径指向 public 文件夹内的文件
+const srtSrc = '/static/讲稿1_cosy_声音样本1.srt';   // 同上
 
 // 音频播放器引用
 const audioPlayer = ref(null);
@@ -63,7 +63,7 @@ const currentTime = ref(0);
 const currentPage = ref(1);
 
 // 每页显示字幕数量
-const subtitlesPerPage = 5;
+const subtitlesPerPage = 15;
 
 // 总项数
 const totalItems = computed(() => subtitles.value.length);
