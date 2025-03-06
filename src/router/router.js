@@ -20,6 +20,11 @@ const routes = [
                 component: () => import("@/Views/TTSPPTView.vue"),
             },
             {
+                path: '/ppt_video', // 确保这是VideoPage组件的路由路径
+                name: 'ppt_video',
+                component: () => import("@/Views/PPTVideoView.vue"),
+            },
+            {
                 path: "tts_pdf",
                 name: "有声书",
                 hidden: false,
