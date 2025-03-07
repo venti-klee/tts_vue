@@ -28,6 +28,7 @@ const handleVoiceSelect = (selectedVoiceData) => {
 <template>
 <div>
   <el-row>
+    
     <el-col :xs="24" :sm="14" :md="14" :lg="14" :xl="14">
       <!--文本-->
       <el-row>
@@ -39,16 +40,14 @@ const handleVoiceSelect = (selectedVoiceData) => {
         <voice-selector class="voice-select-container" @select-voice="handleVoiceSelect"></voice-selector>
       </el-row>
     </el-col>
+
     <!--音频设置-->
     <el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10" >
       <div>
         <sound-adjust class="sound-adjust-cotainer" @update:audio-settings="handleAudioSettings"></sound-adjust>
         <button class="btn1">生成音频</button>
       </div>
-      <!-- <div>
-      <h3>音频设置参数：</h3>
-      <pre>{{ audioSettings }}</pre>
-    </div> -->
+
     </el-col>
   </el-row>
 

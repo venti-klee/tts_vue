@@ -161,7 +161,7 @@ const toggleRepeat = () => {
   margin-top: 20px;
   width:680px;
   span{
-    background-color:transparent;
+    background-color:;
     color:#767A7D;
     font-size:18px;
     margin-left:20px;

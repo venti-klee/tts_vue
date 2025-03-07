@@ -5,7 +5,7 @@
     <el-form class="form">
       <div class="set-item" label="语言">
         <p class="set-name">语言</p>
-        <el-select class="select-container" v-model="audioSettings.language" placeholder="选择语言" @change="handleLanguageChange">
+        <el-select class="select-container" v-model="audioSettings.language" placeholder="中文" @change="handleLanguageChange">
           <el-option
               v-for="language in languages"
               :key="language.value"
@@ -123,13 +123,13 @@ const pauseMarks = {
 // };
 const subtitles = ref([
   { value: '关闭', label: '关闭' },
-  { value: '简体中文', label: '简体中文' },
+  { value: '中文', label: '中文' },
   { value: '英语', label: '英语' },
   { value: '日语', label: '日语' },
   { value: '韩语', label: '韩语' }
 ]);
 const languages = ref([
-  { value: '简体中文', label: '中文' },
+  { value: '中文', label: '中文' },
   { value: '英语', label: '英语' },
   { value: '日语', label: '日语' },
   { value: '韩语', label: '韩语' }
@@ -213,7 +213,7 @@ watch(audioSettings, () => {
   color:white;
   border-radius: 10px;
   border:none;
-  padding:70px 10px 10px 10px;
+  padding:70px 10px 3px 10px;
   flex-direction: column; /* 纵向排列 */
   gap: 10px; /* 控制表单项间距 */
   border-top: 0.5px solid rgba(255,255,255,0.3);
@@ -266,5 +266,16 @@ watch(audioSettings, () => {
     background-color: #E2E2E3 !important; /* 未滑过部分 */
   }
 }
-
+.btn1{
+  width: 515px;
+  height:40px;
+  margin-top:20px;
+  background-color: #25AEBF;
+  color:white;
+  border-radius: 10px;
+  border:none;
+}
+.btn1:hover{
+  background-color: #1D94A4;
+}
 </style>

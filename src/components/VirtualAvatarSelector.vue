@@ -1,8 +1,11 @@
 <template>
+  
   <!-- 外层容器，用于包含整个虚拟形象选择器 -->
   <div class="avatar-selector-container">
+    <p class="title">虚拟教师</p>
     <!-- 滚动容器，用于横向滚动查看虚拟形象 -->
     <div class="avatars-scroll-container" ref="scrollContainer">
+      
       <!-- 虚拟形象容器，包含所有虚拟形象 -->
       <div class="avatars-container" ref="avatarsContainer">
         <!-- 循环渲染虚拟形象 -->
@@ -28,14 +31,13 @@ import {ref, defineEmits, onMounted, nextTick} from 'vue';
 
 // 定义虚拟形象数组，包含图片路径和名称
 const avatars = ref([
-  { image: require("@/assets/static/vox.jpg"), name: 'vox老师' },
-  { image: require("@/assets/static/vox.jpg"), name: 'vox老师' },
-  { image: require("@/assets/static/vox.jpg"), name: 'vox老师' },
-  { image: require("@/assets/static/vox.jpg"), name: 'vox老师' },
-  { image: require("@/assets/static/luca.jpg"), name: 'luca老师' },
-  { image: require("@/assets/static/vox.jpg"), name: 'vox老师' },
-  { image: require("@/assets/static/vox.jpg"), name: 'vox老师' },
-  { image: require("@/assets/static/vox.jpg"), name: 'vox老师' }// ... 其他虚拟形象
+  { image: require("@/assets/static/v0.png"), name: '无老师' },
+  { image: require("@/assets/static/v1_bai.png"), name: '夜莺老师' },
+  { image: require("@/assets/static/v3_bai.png"), name: '龙女老师' },
+  { image: require("@/assets/static/v2_bai.png"), name: 'Liny老师' },
+  { image: require("@/assets/static/v5_bai.png"), name: 'yumi老师' },
+  { image: require("@/assets/static/v6_bai.png"), name: '乌梢老师' },
+  { image: require("@/assets/static/v4_bai.png"), name: 'Chris老师' },
 ]);
 
 // 当前选中的虚拟形象索引
@@ -77,9 +79,19 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.title{
+  background-color:transparent;
+  color:#767A7D;
+  font-size:18px;
+  margin-left:20px;
+  margin-top:-5px;
+  margin-bottom:10px;
+}
 .avatar-selector-container {
+  margin-top:30px;
   width: 100%;
   overflow: hidden;
+  resize: none;
 }
 
 .avatars-scroll-container {
@@ -87,12 +99,22 @@ onMounted(() => {
   overflow-x: auto;
   /* 使滚动条平滑 */
   scroll-behavior: smooth;
+  background-color:rgba(60, 67, 75, 0.66);
+  color:white;
+  border-radius: 10px;
+  border:none;
+  padding:20px 25px 0 25px;
+  backdrop-filter: blur(5px);
+  border-top: 0.5px solid rgba(255,255,255,0.3);
+  border-left: 0.5px solid rgba(255,255,255,0.3);
+  box-shadow: -6px -6px 16px 0 rgba(255, 255, 255, 0.14), -3px -3px 6px -4px rgba(255, 255, 255, 0.08);
+
 }
 
 .avatars-container {
   display: flex;
   /* 使虚拟形象之间的间隔均匀分布 */
-  gap: 10px;
+  gap: 20px;
   /* 设置容器宽度，以展示5个虚拟形象 */
   width: 500px; /* 根据实际情况调整 */
 }
@@ -101,12 +123,12 @@ onMounted(() => {
   flex: 0 0 auto;
   cursor: pointer;
   position: relative;
-  width: 100px; /* 根据实际情况调整 */
+  width: 80px; /* 根据实际情况调整 */
   transition: transform 0.3s ease;
 }
 
 .avatar-item.selected img {
-  border: 2px solid #409eff;
+  border: 2px solid #25AEBF;
 }
 
 .avatar-item img {
@@ -117,6 +139,8 @@ onMounted(() => {
 
 .avatar-name {
   text-align: center;
-  margin-top: 8px;
+  margin-top: 0px;
+  margin-bottom:5px;
+  font-size:14px;
 }
 </style>

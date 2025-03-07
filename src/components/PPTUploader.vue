@@ -1,5 +1,6 @@
 <template>
-  <el-upload class="upload-content"
+  <div class="upload-container-top">
+    <el-upload class="upload-content"
       drag
       action="#"
       :limit="1"
@@ -9,22 +10,27 @@
       :file-list="fileList"
       :auto-upload="false"
       @change="handleChange"
-  >
-    <i class="el-icon-upload"></i>
-    <div class="el-upload__text">
-      <img class="upload-icon" src="/static/上传.png" alt="pic"><br>
-      将文件拖到此处 <br>-或-<br> 
-      <em>点击上传</em>
-    </div>
-  </el-upload>
+    >
+      <i class="el-icon-upload"></i>
+      <div class="el-upload__text">
+        <img class="upload-icon" src="/static/上传.png" alt="pic"><br>
+        将文件拖到此处 <br>-或-<br> 
+        <em>点击上传</em>
+      </div>
+    </el-upload>
 
-  <div class="content-section">
-    <h3>教学内容</h3>
-    <textarea v-model="teachingContent" rows="10" cols="50" readonly></textarea>
-    <p>共 {{ contentLength }} 字</p>
+    <div class="content-section">
+      <p class="title">教学内容</p>
+      <p class="tip">*由PPT内容提取的教学文本</p>
+      <textarea v-model="teachingContent" rows="10" cols="50" readonly>
+      </textarea>
+      <p class="word-count">共 {{ contentLength }} 字</p>
+    </div>
   </div>
+  
   <div class="language-section">
-    <h3>语种替换</h3>
+    <p class="title">语种替换</p>
+    <p class="tip">*选择语言后自动翻译教学文本</p>
     <textarea v-model="translatedContent" rows="10" cols="50" readonly></textarea>
   </div>
 </template>
@@ -87,31 +93,103 @@ watch(() => eventBus.getLanguage(), (newLang) => {
 </script>
 
 <style scoped>
-.content-section,
-.language-section {
-  margin-top: 20px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
 
-textarea {
-  width: 100%;
-  height: 150px;
-  background-color: #3a3a3a;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
+.upload-container-top{
+  display:flex;
+  margin-top:20px;
+  margin-left:40px;
+  width:680px;
+  .upload-content{
+    margin-top:37px;
+    height:180px;
+  }
+  .content-section{
+    margin-left:20px;
+    margin-top: 10px;
+    margin-right:20px;
+    position:relative;
+    .tip{
+      position:absolute;
+      z-index:99;
+      font-size:14px;
+      color:#767A7D;
+      left:10px;
+      margin-top:5px;
+      height:25px;
+    }
+    textarea{
+      resize: none;
+      width: 100%;
+      height:140px;
+      background-color:rgba(60, 67, 75, 0.66);
+      color:white;
+      border-radius: 10px;
+      border:none;
+      padding:10px 10px 10px 10px;
+      backdrop-filter: blur(5px);
+      border-top: 0.5px solid rgba(255,255,255,0.3);
+      border-left: 0.5px solid rgba(255,255,255,0.3);
+      box-shadow: -6px -6px 16px 0 rgba(255, 255, 255, 0.14), -3px -3px 6px -4px rgba(255, 255, 255, 0.08);
+      
+    }
+    .word-count{
+      position:absolute;
+      bottom:-5px;
+      right:10px;
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .title{
+      background-color:transparent;
+      color:#767A7D;
+      font-size:18px;
+      margin-left:20px;
+      margin-top:-10px;
+      margin-bottom:10px;
+    }
+  }
 }
-
-.upload-content{
+.language-section{
+  margin-left:40px;
+  margin-bottom:10px;
+  textarea{
+    resize: none;
+    width: 660px;
+    height:90px;
+    background-color:rgba(60, 67, 75, 0.66);
+    color:white;
+    border-radius: 10px;
+    border:none;
+    padding:10px 10px 10px 10px;
+    backdrop-filter: blur(5px);
+    border-top: 0.5px solid rgba(255,255,255,0.3);
+    border-left: 0.5px solid rgba(255,255,255,0.3);
+    box-shadow: -6px -6px 16px 0 rgba(255, 255, 255, 0.14), -3px -3px 6px -4px rgba(255, 255, 255, 0.08);
+  }
+  .tip{
+    position:absolute;
+    z-index:99;
+    font-size:14px;
+    color:#767A7D;
+    left:50px;
+    margin-top:5px;
+    height:25px;
+  }
+  .title{
+    background-color:transparent;
+    color:#767A7D;
+    font-size:18px;
+    margin-left:20px;
+    margin-top:-10px;
+    margin-bottom:10px;
+  }
 }
 ::v-deep .el-upload-dragger{
-  padding:0;
   background-color: #767A7D;
   border:none;
   width:280px;
-  height:250px;
+  height:160px;
   display:flex;
   flex-direction:column;
   justify-content:center;

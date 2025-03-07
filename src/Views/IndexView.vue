@@ -267,7 +267,7 @@ a {
 }
 .left-menu{
   width: 220px;
-  height: 100%;
+  height: 95%;
   background-color: rgb(75, 88, 98,0.65);
   padding: 20px 0;
   transition: width 0.3s ease; /* 添加过渡效果 */

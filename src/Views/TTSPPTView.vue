@@ -1,30 +1,40 @@
 <template>
   <div >
     <el-row>
-      <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
-        <p-p-t-uploader class="ppt-upload-container" ></p-p-t-uploader>
-        <el-button type="primary" class="btn1" @click="startGenerateVideo">开始生成视频</el-button>
-      </el-col>
-      <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
+
+        <!-- ppt上传+文本解析 -->
+        <el-col :xs="24" :sm="14" :md="14" :lg="14" :xl="14">
+          <el-col >
+            <p-p-t-uploader class="ppt-upload-container" >11</p-p-t-uploader>
+            <el-button type="primary" class="btn1" @click="startGenerateVideo">生成视频</el-button> 
+          </el-col>
+        </el-col>
+
+        <!--声音样本-->
         <el-row>
-        <sound-adjust class="sound-adjust-cotainer"></sound-adjust>
+          <voice-selector class="voice-select-container" @select-voice="handleVoiceSelect"></voice-selector>
+        </el-row>
+        
+      <el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10">
+        <el-row>
+          <el-col :span="24">
+            <sound-adjust class="sound-adjust-cotainer"></sound-adjust>
+          </el-col>
         </el-row>
         <el-row>
           <div>
             <virtual-avatar-selector class="teacher-select-cotainer"
                 @update:avatarIndex="handleAvatarIndexChange"
             />
-            <div v-if="selectedAvatar">
+            <!-- <div v-if="selectedAvatar">
               <p>选中的虚拟形象：{{ selectedAvatar.name }}</p>
               <img :src="selectedAvatar.image" alt="Selected Avatar" />
-            </div>
+            </div> -->
           </div>
         </el-row>
       </el-col>
 
     </el-row>
-
-
   </div>
 </template>
 
@@ -32,6 +42,7 @@
 import PPTUploader from '@/components/PPTUploader.vue';
 import SoundAdjust from "@/components/SoundAdjust.vue";
 import VirtualAvatarSelector from "@/components/VirtualAvatarSelector.vue";
+import VoiceSelector from "@/components/VoiceSelector.vue";
 import {ref} from "vue";
 const selectedAvatar = ref(null);
 import { useRouter } from 'vue-router';
@@ -61,24 +72,45 @@ const handleAvatarIndexChange = (index) => {
 </script>
 
 <style scoped>
-.app {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
+*{
+  margin:0;
+  padding:0;
 }
+.ppt-upload-container{
+  margin-left:40px;
+  margin-top:15px;
+  width:660px;
 
+}
+.sound-adjust-cotainer{
+  margin-left:25px;
+  margin-right:25px;
+  margin-top:-370px;
+  padding:0;
+
+}
+.voice-select-container{
+  margin-left:40px;
+  width:680px;
+  margin-top:-10px;
+}
+.teacher-select-cotainer{
+  margin-left:25px;
+  margin-top:10px;
+  margin-right:-65px;
+}
 .btn1 {
-  margin-right:60px;
-  margin-top:20px;
-  width: 98%;
-  margin-left: 0;
+  position:absolute;
+  width:680px;
+  bottom:10px;
+  margin-left: 40px;
   height: 40px;
   background-color: #25AEBF;
   color: white;
   border-radius: 10px;
   border: none;
+  z-index:999;
 }
-
 .btn1:hover {
   background-color: #1D94A4;
 }
