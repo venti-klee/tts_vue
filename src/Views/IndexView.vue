@@ -121,8 +121,10 @@ export default {
               enable: true,
               value_area: 800
             },
-            value: 80,
+            value: 150,
             limit: 150,
+            min: 150,
+            max:200,
           },
           opacity: {
             value: 0.5
