@@ -43,6 +43,7 @@ const handleVoiceSelect = (selectedVoiceData) => {
     <el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10" >
       <div>
         <sound-adjust class="sound-adjust-cotainer" @update:audio-settings="handleAudioSettings"></sound-adjust>
+        <button class="btn1">生成音频</button>
       </div>
       <!-- <div>
       <h3>音频设置参数：</h3>
@@ -87,6 +88,19 @@ const handleVoiceSelect = (selectedVoiceData) => {
   .audio-show{
     margin-top:30px;
     margin-left:40px;
+  }
+  .btn1{
+    margin-left:-10px;
+    width: 510px;
+    height:40px;
+    margin-top:20px;
+    background-color: #25AEBF;
+    color:white;
+    border-radius: 10px;
+    border:none;
+  }
+  .btn1:hover{
+    background-color: #1D94A4;
   }
 
 </style>

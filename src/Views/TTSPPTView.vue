@@ -2,8 +2,8 @@
   <div >
     <el-row>
       <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
-        <el-button type="primary" class="btn1" @click="startGenerateVideo">开始生成视频</el-button>
         <p-p-t-uploader class="ppt-upload-container" ></p-p-t-uploader>
+        <el-button type="primary" class="btn1" @click="startGenerateVideo">开始生成视频</el-button>
       </el-col>
       <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
         <el-row>

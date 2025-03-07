@@ -97,7 +97,7 @@
       </div>
     </el-form>
   </div>
-  <button class="btn1">生成音频</button>
+  
 </div>
 </template>
 
@@ -266,16 +266,5 @@ watch(audioSettings, () => {
     background-color: #E2E2E3 !important; /* 未滑过部分 */
   }
 }
-.btn1{
-  width: 515px;
-  height:40px;
-  margin-top:20px;
-  background-color: #25AEBF;
-  color:white;
-  border-radius: 10px;
-  border:none;
-}
-.btn1:hover{
-  background-color: #1D94A4;
-}
+
 </style>
