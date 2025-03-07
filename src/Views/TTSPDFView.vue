@@ -1,5 +1,6 @@
 <script setup>
-  import SubtitlePlayer from "@/components/SubtitlePlayer.vue";
+
+import SubtitlePlayer from "@/components/SubtitlePlayer.vue";
 </script>
 
 <template>

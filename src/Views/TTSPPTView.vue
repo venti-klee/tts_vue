@@ -2,6 +2,7 @@
   <div >
     <el-row>
       <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
+        <el-button type="primary" class="btn1" @click="startGenerateVideo">开始生成视频</el-button>
         <p-p-t-uploader class="ppt-upload-container" ></p-p-t-uploader>
       </el-col>
       <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
@@ -33,7 +34,16 @@ import SoundAdjust from "@/components/SoundAdjust.vue";
 import VirtualAvatarSelector from "@/components/VirtualAvatarSelector.vue";
 import {ref} from "vue";
 const selectedAvatar = ref(null);
+import { useRouter } from 'vue-router';
+const router = useRouter();
 
+const startGenerateVideo = () => {
+  // 假设您希望在跳转前执行一些操作，比如开始生成视频
+  // generateVideo();
+
+  // 跳转到VideoPage组件，但不改变URL路径
+  router.push({ name: 'ppt_video' }, { replace: true });
+};
 const handleAvatarIndexChange = (index) => {
   const avatars = [
     { image: require("@/assets/static/vox.jpg"), name: 'vox老师' },
@@ -55,5 +65,21 @@ const handleAvatarIndexChange = (index) => {
   display: flex;
   gap: 20px;
   padding: 20px;
+}
+
+.btn1 {
+  margin-right:60px;
+  margin-top:20px;
+  width: 98%;
+  margin-left: 0;
+  height: 40px;
+  background-color: #25AEBF;
+  color: white;
+  border-radius: 10px;
+  border: none;
+}
+
+.btn1:hover {
+  background-color: #1D94A4;
 }
 </style>

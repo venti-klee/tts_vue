@@ -55,14 +55,19 @@
 import { ref, computed, onMounted, watch } from 'vue';
 import parseSrt from 'parse-srt';
 
-const audioSrc = '/static/sft_output_长文本.wav';
-const srtSrc = '/static/sft_output_长文本.srt';
+// 定义音频和字幕文件路径，假设文件位于 public 文件夹内
+const audioSrc = '/static/pdf/sft_output_1600字.wav'; // 确保此路径指向 public 文件夹内的文件
+const srtSrc = '/static/pdf/sft_output_1600字.srt';   // 同上
+
+// 音频播放器引用
 const audioPlayer = ref(null);
 const subtitles = ref([]);
 const currentSubtitleIndex = ref(0);
 const currentTime = ref(0);
 const currentPage = ref(1);
-const subtitlesPerPage = 6;
+
+// 每页显示字幕数量
+const subtitlesPerPage = 15;
 
 const totalItems = computed(() => subtitles.value.length);
 
