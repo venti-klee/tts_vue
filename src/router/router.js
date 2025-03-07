@@ -31,6 +31,12 @@ const routes = [
                 component: () => import("@/Views/TTSPDFView.vue"),
             },
             {
+                path: '/pdf_subtitle', // 确保这是VideoPage组件的路由路径
+                name: 'pdf_subtitle',
+                component: () => import("@/Views/PDFSubtitleView.vue"),
+            },
+
+            {
                 path: "tts_test",
                 name: "发音练习",
                 hidden: false,
