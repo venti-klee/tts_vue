@@ -3,17 +3,17 @@
     <!-- 克隆声音开关 -->
     <div class="switch-container">
       <p>克隆人声</p>
-      <el-switch 
-      v-model="isCloned" 
-      :active-value="true"
-      :inactive-value="false"
-      :size="100"
-      class="custom-switch"></el-switch>
+      <el-switch
+          v-model="isCloned"
+          :active-value="true"
+          :inactive-value="false"
+          :size="100"
+          class="custom-switch"></el-switch>
       <p>标准音</p>
     </div>
 
-    <!-- 声音样本列表 -->
-    <div class="voice-list">
+    <!-- 克隆人声声音样本列表 -->
+    <div class="voice-list" v-if="!isCloned">
       <div v-for="(voice, index) in voices" :key="index" class="voice-item" @click="selectVoice(voice)">
         <el-radio v-model="selectedVoiceId" :label="voice.name" class="radio">{{ '' }}</el-radio>
         <img class="voice-image" :src="voice.image" alt="voice image" >
@@ -29,13 +29,30 @@
         <!-- <el-button class="voice-btn2" type="primary" icon="el-icon-plus" @click.stop="dialogVisible = true">新增</el-button> -->
       </div>
     </div>
+    <!-- 标准音声音样本列表 -->
+    <div class="voice-list" v-if="isCloned">
+      <div v-for="(voice, index) in filteredStandardVoices" :key="index" class="voice-item" @click="selectVoice(voice)">
+        <el-radio v-model="selectedVoiceId" :label="voice.name" class="radio">{{ '' }}</el-radio>
+<!--        <img class="voice-image" :src="voice.image" alt="voice image" >-->
+        <el-avatar class="voice-image" > {{voice.languages}} </el-avatar>
+        <div class="btn-container">
+          <div class="voice-name">{{ voice.name }}</div>
+          <img class="voice-btn" src="/static/播放.png" @click.stop="playVoice(voice)" alt="pic">
+        </div>
+      </div>
 
+      <div class="voice-add" @click="dialogVisible = true">
+        <img :src="require('@/assets/static/加.png')" alt="add voice image" class="voice-image">
+        <div class="voice-name">新建声音</div>
+        <!-- <el-button class="voice-btn2" type="primary" icon="el-icon-plus" @click.stop="dialogVisible = true">新增</el-button> -->
+      </div>
+    </div>
     <!-- 新建声音样本弹窗 -->
     <el-dialog class="dialog"
-        v-model="dialogVisible"
-        title="新建声音样本"
-        width="500px"
-        >
+               v-model="dialogVisible"
+               title="新建声音样本"
+               width="500px"
+    >
       <el-form>
         <el-form-item label="声音名称">
           <el-input v-model="newVoiceName"></el-input>
@@ -60,10 +77,10 @@
               :on-change="handleImageChange"
               :auto-upload="false"
           >
-          <div class="upload-content">
-            <i class="el-icon-plus"></i>
-            <p>点击上传</p>
-          </div>
+            <div class="upload-content">
+              <i class="el-icon-plus"></i>
+              <p>点击上传</p>
+            </div>
           </el-upload>
         </el-form-item>
       </el-form>
@@ -78,9 +95,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import {computed, onMounted, ref} from 'vue'
 import { ElMessageBox, ElMessage } from 'element-plus'
-
+import eventBus from '@/eventBus';
 // 定义自定义事件
 // eslint-disable-next-line no-undef
 const emit = defineEmits(['select-voice'])
@@ -96,6 +113,16 @@ const voices = ref([
   { name: '小男孩', image: require('@/assets/static/小男孩.jpg'), audio: require('@/assets/static/audios/audio1.wav') },
   { name: '阳光男高', image: require('@/assets/static/男高.jpg'), audio: require('@/assets/static/audios/audio1.wav') },
 ])
+const standardvoices = ref([
+  { name: '标准普通话',  audio: require('@/assets/static/audios/audio1.wav'),languages: '中文' },
+  { name: '标准东北话', audio: require('@/assets/static/audios/audio1.wav'),languages: '中文' },
+  { name: '标准台湾话', audio: require('@/assets/static/audios/audio1.wav') ,languages: '中文'},
+  { name: '标准四川话',audio: require('@/assets/static/audios/audio1.wav'),languages: '中文' },
+  { name: '标准英音', audio: require('@/assets/static/audios/audio1.wav'),languages: '英语' },
+  { name: '标准美音', audio: require('@/assets/static/audios/audio1.wav'),languages: '英语' },
+  { name: '标准日语', audio: require('@/assets/static/audios/audio1.wav'),languages: '日语' },
+  { name: '标准韩语', audio: require('@/assets/static/audios/audio1.wav'),languages: '韩语' },
+])
 const dialogVisible = ref(false)
 const newVoiceName = ref('')
 const newVoiceFile = ref(null)
@@ -104,7 +131,25 @@ const selectedVoiceId = ref('')
 let mediaRecorder = null
 const audioChunks = ref([])
 const isRecording = ref(false)
+const currentLanguage = ref(eventBus.getLanguage());
+// 监听语言变更事件
+const updateCurrentLanguage = (lang) => {
+  console.log('Language updated to:', lang); // 调试信息
+  currentLanguage.value = lang;
+};
 
+onMounted(() => {
+  eventBus.onLanguageChanged(updateCurrentLanguage);
+});
+
+
+
+
+// 动态过滤标准音样本
+// eslint-disable-next-line no-unused-vars
+const filteredStandardVoices = computed(() =>
+    standardvoices.value.filter(voice => voice.languages.includes(currentLanguage.value.split('-')[0]))
+);
 const selectVoice = (voice) => {
   selectedVoiceId.value = voice.name
   emit('select-voice', voice)
@@ -193,6 +238,7 @@ const cancelDialog = () => {
   resetForm()
 }
 
+// eslint-disable-next-line no-unused-vars
 const handleClose = (done) => {
   ElMessageBox.confirm('确定要关闭此对话框吗？')
       .then(() => {
@@ -215,7 +261,7 @@ const resetForm = () => {
 .switch-container{
   margin-left:20px;
   display:flex;
-  
+
   align-items: center;
   color: #767A7D;
   font-size:18px;
@@ -316,27 +362,27 @@ const resetForm = () => {
   }
 }
 :deep(.el-dialog){
-    padding:0;
+  padding:0;
 }
 :deep(.dialog .el-dialog__header) {
-    background-color: #f0f0f0; /* 设置灰色背景 */
-    text-align: center; /* 让标题居中 */
-    padding: 10px; /* 调整内边距 */
-    border-top-left-radius: 8px; /* 圆角优化 */
-    border-top-right-radius: 8px;
+  background-color: #f0f0f0; /* 设置灰色背景 */
+  text-align: center; /* 让标题居中 */
+  padding: 10px; /* 调整内边距 */
+  border-top-left-radius: 8px; /* 圆角优化 */
+  border-top-right-radius: 8px;
 }
 .dialog .el-dialog__title {
-    font-weight: bold; /* 标题加粗 */
-    font-size: 18px; /* 调整字体大小 */
+  font-weight: bold; /* 标题加粗 */
+  font-size: 18px; /* 调整字体大小 */
 }
 :deep(.dialog .el-dialog__body) {
-    padding: 20px; /* 调整内边距 */
+  padding: 20px; /* 调整内边距 */
 }
 :deep(el-dialog__footer){
   margin-top:-20px;
 }
 .dialog-footer {
-    padding: 20px 20px; /* 调整内边距 */
+  padding: 20px 20px; /* 调整内边距 */
 }
 .btn1{
   background-color: #25AEBF;
