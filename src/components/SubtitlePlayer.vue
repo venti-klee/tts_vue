@@ -2,14 +2,27 @@
   <div class="subtitle-player">
     <!-- 字幕分页显示 -->
     <div class="subtitles-list">
-      <div
-          v-for="(subtitle, index) in paginatedSubtitles"
+      <div class="column">
+        <div
+          v-for="(subtitle, index) in leftColumn"
           :key="index"
           class="subtitle-item"
-          :class="{ active: isActive(index) }"
-          @click="seekToSubtitle(((currentPage - 1) * subtitlesPerPage) + index)"
-      >
-        {{ subtitle.text }}
+          :class="{ active: isActive(index + (currentPage - 1) * subtitlesPerPage) }"
+          @click="seekToSubtitle(index + (currentPage - 1) * subtitlesPerPage)"
+        >
+          {{ subtitle.text }}
+        </div>
+      </div>
+      <div class="column">
+        <div
+          v-for="(subtitle, index) in rightColumn"
+          :key="index + subtitlesPerPage / 2"
+          class="subtitle-item"
+          :class="{ active: isActive(index + leftColumn.length + (currentPage - 1) * subtitlesPerPage) }"
+          @click="seekToSubtitle(index + leftColumn.length + (currentPage - 1) * subtitlesPerPage)"
+        >
+          {{ subtitle.text }}
+        </div>
       </div>
     </div>
 
@@ -39,8 +52,7 @@
 </template>
 
 <script setup>
-// eslint-disable-next-line no-unused-vars
-import {ref, onMounted, computed, watch} from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import parseSrt from 'parse-srt';
 
 // 定义音频和字幕文件路径，假设文件位于 public 文件夹内
@@ -49,39 +61,28 @@ const srtSrc = '/static/pdf/sft_output_1600字.srt';   // 同上
 
 // 音频播放器引用
 const audioPlayer = ref(null);
-
-// 字幕数据
 const subtitles = ref([]);
-
-// 当前字幕索引
 const currentSubtitleIndex = ref(0);
-
-// 当前播放时间
 const currentTime = ref(0);
-
-// 当前页码
 const currentPage = ref(1);
 
 // 每页显示字幕数量
 const subtitlesPerPage = 15;
 
-// 总项数
 const totalItems = computed(() => subtitles.value.length);
 
-// 分页后的字幕数据
 const paginatedSubtitles = computed(() => {
   const start = (currentPage.value - 1) * subtitlesPerPage;
-  const end = start + subtitlesPerPage;
-  return subtitles.value.slice(start, end);
+  return subtitles.value.slice(start, start + subtitlesPerPage);
 });
 
-// 加载字幕文件
+const leftColumn = computed(() => paginatedSubtitles.value.slice(0, subtitlesPerPage / 2));
+const rightColumn = computed(() => paginatedSubtitles.value.slice(subtitlesPerPage / 2));
+
 onMounted(async () => {
   try {
     const response = await fetch(srtSrc);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     const text = await response.text();
     subtitles.value = parseSrt(text);
   } catch (error) {
@@ -89,7 +90,6 @@ onMounted(async () => {
   }
 });
 
-// 处理音频播放更新事件
 const handleTimeUpdate = () => {
   currentTime.value = audioPlayer.value.currentTime;
   const currentTimeInSeconds = Math.floor(currentTime.value);
@@ -103,7 +103,6 @@ const handleTimeUpdate = () => {
   }
 };
 
-// 更新当前页以确保指定字幕项可见
 const updateCurrentPageForSubtitle = (index) => {
   const pageIndex = Math.ceil((index + 1) / subtitlesPerPage);
   if (pageIndex !== currentPage.value) {
@@ -111,42 +110,19 @@ const updateCurrentPageForSubtitle = (index) => {
   }
 };
 
-// 处理音频播放结束事件
-const handleEnded = () => {
-  currentSubtitleIndex.value = subtitles.value.length - 1;
-  updateCurrentPageForSubtitle(subtitles.value.length - 1);
-};
-
-// 播放或暂停音频
 const playOrPause = () => {
-  if (isPlaying.value) {
-    audioPlayer.value.pause();
-  } else {
-    audioPlayer.value.play();
-  }
+  if (isPlaying.value) audioPlayer.value.pause();
+  else audioPlayer.value.play();
   isPlaying.value = !isPlaying.value;
 };
 
-// 快退功能
-const rewind = () => {
-  audioPlayer.value.currentTime -= 5; // 快退5秒
-};
+const rewind = () => { audioPlayer.value.currentTime -= 5; };
+const fastForward = () => { audioPlayer.value.currentTime += 5; };
+const setPlaybackRate = () => { audioPlayer.value.playbackRate = playbackRate.value; };
 
-// 快进功能
-const fastForward = () => {
-  audioPlayer.value.currentTime += 5; // 快进5秒
-};
-
-// 设置倍速播放
-const setPlaybackRate = () => {
-  audioPlayer.value.playbackRate = playbackRate.value;
-};
-
-// 跳转到特定字幕并播放
 const seekToSubtitle = (index) => {
   if (index >= 0 && index < subtitles.value.length) {
-    const subtitle = subtitles.value[index];
-    audioPlayer.value.currentTime = subtitle.start;
+    audioPlayer.value.currentTime = subtitles.value[index].start;
     audioPlayer.value.play();
     isPlaying.value = true;
     currentSubtitleIndex.value = index;
@@ -154,19 +130,10 @@ const seekToSubtitle = (index) => {
   }
 };
 
-// 分页变化时触发
-const onPageChange = (newPage) => {
-  currentPage.value = newPage;
-};
-
-// 判断是否应该高亮某个字幕项
-const isActive = (index) => {
-  const globalIndex = (currentPage.value - 1) * subtitlesPerPage + index;
-  return globalIndex === currentSubtitleIndex.value;
-};
-
+const onPageChange = (newPage) => { currentPage.value = newPage; };
+const isActive = (index) => index === currentSubtitleIndex.value;
 const isPlaying = ref(false);
-const playbackRate = ref(1.0); // 倍速播放速率，默认为1.0
+const playbackRate = ref(1.0);
 </script>
 
 <style scoped>
@@ -177,9 +144,15 @@ const playbackRate = ref(1.0); // 倍速播放速率，默认为1.0
 }
 
 .subtitles-list {
-  width: 300px; /* Adjust as needed */
-  overflow-y: auto;
+  display: flex;
+  width: 600px;
+  justify-content: space-between;
+  gap: 20px;
   margin-top: 20px;
+}
+
+.column {
+  width: 50%;
 }
 
 .subtitle-item {
@@ -189,7 +162,8 @@ const playbackRate = ref(1.0); // 倍速播放速率，默认为1.0
 }
 
 .active {
-  background-color: #f0f0f0f0;
+  background-color: #25AEBF;
+  font-weight: bold;
 }
 
 .audio-controls {

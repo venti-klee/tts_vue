@@ -2,22 +2,22 @@
   <div >
     <el-row>
       <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
-        <p-p-t-uploader ></p-p-t-uploader>
         <el-button type="primary" class="btn1" @click="startGenerateVideo">开始生成视频</el-button>
+        <p-p-t-uploader class="ppt-upload-container" ></p-p-t-uploader>
       </el-col>
       <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
         <el-row>
-        <sound-adjust ></sound-adjust>
+        <sound-adjust class="sound-adjust-cotainer"></sound-adjust>
         </el-row>
         <el-row>
           <div>
-            <virtual-avatar-selector
+            <virtual-avatar-selector class="teacher-select-cotainer"
                 @update:avatarIndex="handleAvatarIndexChange"
             />
-<!--            <div v-if="selectedAvatar">-->
-<!--              <p>选中的虚拟形象：{{ selectedAvatar.name }}</p>-->
-<!--              <img :src="selectedAvatar.image" alt="Selected Avatar" />-->
-<!--            </div>-->
+            <div v-if="selectedAvatar">
+              <p>选中的虚拟形象：{{ selectedAvatar.name }}</p>
+              <img :src="selectedAvatar.image" alt="Selected Avatar" />
+            </div>
           </div>
         </el-row>
       </el-col>

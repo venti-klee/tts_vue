@@ -1,5 +1,5 @@
 <template>
-  <el-upload
+  <el-upload class="upload-content"
       drag
       action="#"
       :limit="1"
@@ -11,7 +11,11 @@
       @change="handleChange"
   >
     <i class="el-icon-upload"></i>
-    <div class="el-upload__text">将文件拖到此处 或 <em>点击上传</em></div>
+    <div class="el-upload__text">
+      <img class="upload-icon" src="/static/上传.png" alt="pic"><br>
+      将文件拖到此处 <br>-或-<br> 
+      <em>点击上传</em>
+    </div>
   </el-upload>
 
   <div class="content-section">
@@ -98,5 +102,26 @@ textarea {
   color: #fff;
   border: none;
   border-radius: 5px;
+}
+
+.upload-content{
+}
+::v-deep .el-upload-dragger{
+  padding:0;
+  background-color: #767A7D;
+  border:none;
+  width:280px;
+  height:250px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+::v-deep .el-upload__text{
+  color:white;
+}
+.upload-icon{
+  width:23px;
+  height:23px;
 }
 </style>
