@@ -84,8 +84,9 @@ const handleAvatarIndexChange = (index) => {
 }
 .sound-adjust-cotainer{
   margin-left:25px;
-  margin-right:25px;
-  margin-top:-370px;
+  /* margin-right:25px; */
+  width:91%;
+  margin-top:-368px;
   padding:0;
 
 }

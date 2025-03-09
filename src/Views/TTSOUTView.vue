@@ -28,7 +28,6 @@ const handleVoiceSelect = (selectedVoiceData) => {
 <template>
 <div>
   <el-row>
-    
     <el-col :xs="24" :sm="14" :md="14" :lg="14" :xl="14">
       <!--文本-->
       <el-row>
@@ -80,8 +79,9 @@ const handleVoiceSelect = (selectedVoiceData) => {
     margin-top:-70px;
   }
   .sound-adjust-cotainer{
-    margin-right:60px;
+    /* margin-right:60px; */
     margin-left:-10px;
+    width:91%;
     margin-top:20px;
   }
   .audio-show{

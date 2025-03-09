@@ -203,6 +203,9 @@ export default {
     }
   },
   mounted() {
+    if (this.$route.path === '/') {
+      this.$router.replace(this.menuItems[0].route); // 重定向到第一个页面
+    }
     document.addEventListener('click', this.handleClickOutside);  // 监听全局点击事件
   },
 
