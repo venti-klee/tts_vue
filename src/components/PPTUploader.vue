@@ -41,10 +41,10 @@ import eventBus from "@/eventBus";
 const fileList = ref([]);
 const teachingContent = ref('');
 const languagesMap = {
-  'zh-CN': '这是一组静态的教学文本，用于展示从PPT提取的文本内容。',
-  'en': 'This is a set of static teaching text, used to display the extracted text from the PPT.',
-  'ja': 'これは、PPTから抽出されたテキストを表示するために使用される一連の静的教科書テキストです。',
-  'ko': '이 static 교육 텍스트는 PPT에서 추출 된 텍스트를 표시하기 위해 사용됩니다.'
+  '中文': '这是一组静态的教学文本，用于展示从PPT提取的文本内容。',
+  '英语': 'This is a set of static teaching text, used to display the extracted text from the PPT.',
+  '日语': 'これは、PPTから抽出されたテキストを表示するために使用される一連の静的教科書テキストです。',
+  '韩语': '이 static 교육 텍스트는 PPT에서 추출 된 텍스트를 표시하기 위해 사용됩니다.'
 };
 const translatedContent = ref('');
 

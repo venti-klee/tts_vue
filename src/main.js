@@ -11,8 +11,6 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import { AVPlugin } from "vue-audio-visual";
 
 
-
-
 console.log(IndexView); // 如果路径正确，这里会输出组件定义
 const app = createApp(App);
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
