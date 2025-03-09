@@ -1,6 +1,5 @@
 <template>
   <div>
-    <span>发音练习</span>
     <BookSearch v-if="!selectedBook" @select-book="handleSelectBook" />
     <BookDetails v-if="selectedBook" :selected-book="selectedBook" @select-book="BackSelectBook"/>
   </div>

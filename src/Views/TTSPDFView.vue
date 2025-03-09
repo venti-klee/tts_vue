@@ -1,9 +1,8 @@
 <script setup>
 
-
 import PDFUploader from "@/components/PDFUploader.vue";
 import SoundAdjust from "@/components/SoundAdjust.vue";
-import VoiceSelector from "@/components/VoiceSelector.vue";
+import VoiceSelector1 from "@/components/VoiceSelector1.vue";
 import { useRouter } from 'vue-router';
 const router = useRouter();
 
@@ -21,17 +20,17 @@ const startGeneratePDF = () => {
   <div>
     <el-row>
       <el-col :xs="24" :sm="14" :md="14" :lg="14" :xl="14">
-        <p-d-f-uploader ></p-d-f-uploader>
+        <p-d-f-uploader class="pdf-upload-container"></p-d-f-uploader>
         <el-row>
           <el-button type="primary" class="btn1" @click="startGeneratePDF">生成有声书</el-button>
         </el-row>
       </el-col>
-      <el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10">
-        <el-row>
-          <sound-adjust ></sound-adjust>
+      <el-col class="a" :xs="24" :sm="10" :md="10" :lg="10" :xl="10">
+        <el-row >
+          <sound-adjust class="sound-adjust-cotainer"></sound-adjust>
         </el-row>
         <el-row>
-          <voice-selector></voice-selector>
+          <voice-selector1 class="voice-select-container"></voice-selector1>
         </el-row>
       </el-col>
 
@@ -41,12 +40,39 @@ const startGeneratePDF = () => {
 </template>
 
 <style scoped>
+*{
+  padding:0;
+  margin:0;
+}
+.pdf-upload-container{
+  margin-left:40px;
+  margin-top:15px;
+  width:680px;
+}
+.a{
+  margin:0;
+  padding:0;
+}
+.sound-adjust-cotainer{
+  margin-left:-10px;
+  width:91%;
+  margin-top:-3px;
+  padding:0;
+}
+
+.voice-select-container{
+  margin-right:40px;
+  margin-left:-10px;
+  margin-top:0px;
+  height:150px;
+  padding:0;
+}
 
 .btn1 {
-  margin-right:60px;
-  margin-top:20px;
-  width: 98%;
-  margin-left: 0;
+  margin-right:0px;
+  margin-top:10px;
+  width: 680px;
+  margin-left: 40px;
   height: 40px;
   background-color: #25AEBF;
   color: white;

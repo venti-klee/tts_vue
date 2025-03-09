@@ -283,22 +283,21 @@ const resetForm = () => {
 
 .voice-selector {
   padding: 0px;
-
   .voice-list {
     border-top: 0.5px solid rgba(255,255,255,0.3);
     border-left: 0.5px solid rgba(255,255,255,0.3);
     box-shadow: -6px -6px 16px 0 rgba(255, 255, 255, 0.14), -3px -3px 6px -4px rgba(255, 255, 255, 0.08);
     overflow-y: auto; /* 允许纵向滚动 */
-    height:230px;
+    height:145px;
     margin-top:5px;
     display: flex;
     flex-wrap: wrap;
     background-color: rgba(60, 67, 75, 0.66);
     backdrop-filter: blur(5px);
     border-radius: 10px;
-    padding:10px 22px 10px 22px;
+    padding:10px 10px 10px 10px;
     .voice-item {
-      margin: 10px 12px;
+      margin: 10px 9px;
       display: flex;
       flex-direction: column;
       align-items: center;
