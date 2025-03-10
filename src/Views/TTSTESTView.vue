@@ -1,7 +1,7 @@
 <template>
   <div>
-    <BookSearch v-if="!selectedBook" @select-book="handleSelectBook" />
-    <BookDetails v-if="selectedBook" :selected-book="selectedBook" @select-book="BackSelectBook"/>
+    <BookSearch class="book-search-container" v-if="!selectedBook" @select-book="handleSelectBook" />
+    <BookDetails class="book-details-container" v-if="selectedBook" :selected-book="selectedBook" @select-book="BackSelectBook"/>
   </div>
 </template>
 
@@ -21,5 +21,11 @@ const BackSelectBook = () => {
 </script>
 
 <style scoped>
-/* 添加样式 */
+.book-search-container{
+  margin-left:40px;
+}
+.book-details-container{
+  margin-left:40px;
+  background-color: transparent;
+}
 </style>

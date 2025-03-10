@@ -41,11 +41,11 @@
         </div>
       </div>
 
-      <div class="voice-add" @click="dialogVisible = true">
+      <!-- <div class="voice-add" @click="dialogVisible = true">
         <img :src="require('@/assets/static/加.png')" alt="add voice image" class="voice-image">
         <div class="voice-name">新建声音</div>
-        <!-- <el-button class="voice-btn2" type="primary" icon="el-icon-plus" @click.stop="dialogVisible = true">新增</el-button> -->
-      </div>
+        <el-button class="voice-btn2" type="primary" icon="el-icon-plus" @click.stop="dialogVisible = true">新增</el-button>
+      </div> -->
     </div>
     <!-- 新建声音样本弹窗 -->
     <el-dialog class="dialog"
@@ -104,20 +104,30 @@ const emit = defineEmits(['select-voice'])
 
 const isCloned = ref(false)
 const voices = ref([
-  { name: '女老师', image: require('@/assets/static/女老师.jpg'), audio: require('@/assets/static/audios/audio1.wav') },
-  { name: '小张学姐', image: require('@/assets/static/学姐.jpg'), audio: require('@/assets/static/audios/audio1.wav') },
-  { name: '小女孩', image: require('@/assets/static/小女孩.jpg'), audio: require('@/assets/static/audios/audio1.wav') },
-  { name: '温柔姐姐', image: require('@/assets/static/大姐姐.jpg'), audio: require('@/assets/static/audios/audio1.wav') },
-  { name: '男老师', image: require('@/assets/static/男老师.jpg'), audio: require('@/assets/static/audios/audio1.wav') },
-  { name: '小杨学长', image: require('@/assets/static/学长.jpg'), audio: require('@/assets/static/audios/audio1.wav') },
-  { name: '小男孩', image: require('@/assets/static/小男孩.jpg'), audio: require('@/assets/static/audios/audio1.wav') },
-  { name: '阳光男高', image: require('@/assets/static/男高.jpg'), audio: require('@/assets/static/audios/audio1.wav') },
+  { name: '女老师', image: require('@/assets/static/女老师.jpg'), audio: require('@/assets/static/声音克隆/女老师输出2.0.wav') },
+  { name: '小张学姐', image: require('@/assets/static/学姐.jpg'), audio: require('@/assets/static/声音克隆/小张输出.wav') },
+  { name: '小女孩', image: require('@/assets/static/小女孩.jpg'), audio: require('@/assets/static/声音克隆/小女孩输出.wav') },
+  { name: '温柔姐姐', image: require('@/assets/static/大姐姐.jpg'), audio: require('@/assets/static/声音克隆/温柔女声输出.wav') },
+  { name: '男老师', image: require('@/assets/static/男老师.jpg'), audio: require('@/assets/static/声音克隆/男老师2.0输出.wav') },
+  { name: '小杨学长', image: require('@/assets/static/学长.jpg'), audio: require('@/assets/static/声音克隆/小杨输出.wav') },
+  { name: '小男孩', image: require('@/assets/static/小男孩.jpg'), audio: require('@/assets/static/声音克隆/小男孩输出.wav') },
+  { name: '阳光男高', image: require('@/assets/static/男高.jpg'), audio: require('@/assets/static/声音克隆/阳光输出.wav') },
 ])
 const standardvoices = ref([
-  { name: '标准普通话',  audio: require('@/assets/static/audios/audio1.wav'),languages: '中文' },
-  { name: '标准东北话', audio: require('@/assets/static/audios/audio1.wav'),languages: '中文' },
-  { name: '标准台湾话', audio: require('@/assets/static/audios/audio1.wav') ,languages: '中文'},
-  { name: '标准四川话',audio: require('@/assets/static/audios/audio1.wav'),languages: '中文' },
+  { name: '普通话_女',  audio: require('@/assets/static/标准音/标准女.wav'),languages: '中文' },
+  { name: '普通话_男',  audio: require('@/assets/static/标准音/标准男.wav'),languages: '中文' },
+  { name: '上海话_女',  audio: require('@/assets/static/标准音/标准女_上海话.wav'),languages: '中文' },
+  { name: '上海话_男', audio: require('@/assets/static/标准音/标准男_上海话.wav'),languages: '中文' },
+  { name: '四川话_女', audio: require('@/assets/static/标准音/标准女_四川话.wav') ,languages: '中文'},
+  { name: '四川话_男',audio: require('@/assets/static/标准音/标准男_四川话.wav'),languages: '中文' },
+  { name: '天津话_女',  audio: require('@/assets/static/标准音/标准女_天津话.wav'),languages: '中文' },
+  { name: '天津话_男', audio: require('@/assets/static/标准音/标准男_天津话.wav'),languages: '中文' },
+  { name: '粤语_女', audio: require('@/assets/static/标准音/标准女_粤语.wav') ,languages: '中文'},
+  { name: '粤语_男',audio: require('@/assets/static/标准音/标准男_粤语.wav'),languages: '中文' },
+  { name: '长沙话_女',  audio: require('@/assets/static/标准音/标准女_长沙话.wav'),languages: '中文' },
+  { name: '长沙话_男', audio: require('@/assets/static/标准音/标准男_长沙话.wav'),languages: '中文' },
+  { name: '郑州话_女', audio: require('@/assets/static/标准音/标准女_郑州话.wav') ,languages: '中文'},
+  { name: '郑州话_男',audio: require('@/assets/static/标准音/标准男_郑州话.wav'),languages: '中文' },
   { name: '标准英音', audio: require('@/assets/static/audios/audio1.wav'),languages: '英语' },
   { name: '标准美音', audio: require('@/assets/static/audios/audio1.wav'),languages: '英语' },
   { name: '标准日语', audio: require('@/assets/static/audios/audio1.wav'),languages: '日语' },

@@ -1,5 +1,6 @@
 <template>
   <img class="goback-img" src="/static/返回2.png" @click="goBack" alt="pic">
+  
   <div class="subtitle-player">
     <!-- 字幕分页显示 -->
     <div class="subtitles-list">
@@ -29,6 +30,7 @@
 
     <!-- 分页控件 -->
     <el-pagination class="pagination"
+        background
         layout="prev, pager, next"
         :total="totalItems"
         :page-size="subtitlesPerPage"
@@ -211,13 +213,15 @@ const playbackRate = ref(1.0);
 /* 修改选中页码的颜色 */
 ::v-deep(.el-pager .number.is-active),
 ::v-deep(.el-pager .number:hover) {
-  color: #25AEBF !important; /* 设置选中页码的字体颜色 */
+  background-color: #25AEBF !important; /* 设置选中页码的字体颜色 */
+  color:white;
   font-weight: bold; /* 可选，增加加粗效果 */
   margin: 0 10x; /* 页码间距 10px */
 }
 /* 设置页码之间的间隔 */
 ::v-deep(.el-pager .number) {
   margin: 0 2px; /* 页码间距 10px */
+  transition: all 0.3s ease-in-out; 
 }
 
 .pagination{
