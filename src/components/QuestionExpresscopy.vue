@@ -14,6 +14,7 @@ export default {
   setup(props) {
     const messages = ref([]); // 存储整个对话历史
     const newMessage = ref(''); // 用户输入的消息
+    // eslint-disable-next-line no-unused-vars
     let currentBotMessage='';
     // 监听selectedQuestion变化，当选择新题目时调用handleImageQuestion并清空聊天记录
     watch(() => props.selectedQuestion, async (newVal) => {
@@ -40,6 +41,7 @@ export default {
     };
 
 // 调用文本生成API解决用户输入的问题，并实现实时显示回复的效果
+    // eslint-disable-next-line no-unused-vars
     const callTextGenerationApi = async (userInput) => {
       try {
         let assistantReplyStarted = false; // 标记是否已经开始接收回复
@@ -79,6 +81,7 @@ export default {
         renderMathJax(); // 更新后重新渲染MathJax
       } catch (error) {
         console.error('Error calling text generation API:', error);
+        // eslint-disable-next-line no-undef
         if (!assistantReplyStarted) {
           addMessage({ role: 'assistant', content: '抱歉，无法生成回答。' });
         }
