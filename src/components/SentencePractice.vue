@@ -25,12 +25,12 @@
 import { ref } from 'vue';
 import { ElMessage } from 'element-plus';
 const words = ref([
-  { word: 'The truly humorous individual is often the focus of attention in any gathering.', audioUrl: '/static/audios/newaudio2.wav', meaning: '一个真正有幽默感的人在任何聚会上常常是注意力的核心。', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'Puns require more subtle and sophisticated language skills than other humor forms.', audioUrl: '/static/audios/newaudio2.wav', meaning: '双关语与其他幽默形式相较需要更细微、更巧妙的语言技能。', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'This is a world which is safe and predictable until a murder shatters people’s lives. ', audioUrl: '/static/audios/newaudio2.wav', meaning: '在一场谋杀案打乱了人们的生活之前，这是一个安宁、可预测的世界。', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'There seems no doubt that music will continue to exert its attraction.', audioUrl: '/static/audios/newaudio2.wav', meaning: '毫无疑问，音乐会继续发挥它的诱惑力。', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'Because I was a teenager then, his words couldn’t have been more inspiring.', audioUrl: '/static/audios/newaudio2.wav', meaning: '因为那时我是个十几岁的小伙子，所以他的话最鼓舞人心了。', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'Whenever I doubted I had the right stuff to be a writer，I would reread his note.', audioUrl: '/static/audios/newaudio2.wav', meaning: '每当我怀疑自己不是看成家的料时，便会重温他的便笺。', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  { word: 'The truly humorous individual is often the focus of attention in any gathering.', audioUrl: '/static/发音练习/1.wav', meaning: '一个真正有幽默感的人在任何聚会上常常是注意力的核心。', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  { word: 'Puns require more subtle and sophisticated language skills than other humor forms.', audioUrl: '/static/发音练习/2.wav', meaning: '双关语与其他幽默形式相较需要更细微、更巧妙的语言技能。', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  { word: 'This is a world which is safe and predictable until a murder shatters people’s lives. ', audioUrl: '/static/发音练习/3.wav', meaning: '在一场谋杀案打乱了人们的生活之前，这是一个安宁、可预测的世界。', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  { word: 'There seems no doubt that music will continue to exert its attraction.', audioUrl: '/static/发音练习/4.wav', meaning: '毫无疑问，音乐会继续发挥它的诱惑力。', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  { word: 'Because I was a teenager then, his words couldn’t have been more inspiring.', audioUrl: '/static/发音练习/5.wav', meaning: '因为那时我是个十几岁的小伙子，所以他的话最鼓舞人心了。', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  { word: 'Whenever I doubted I had the right stuff to be a writer，I would reread his note.', audioUrl: '/static/发音练习/6.wav', meaning: '每当我怀疑自己不是看成家的料时，便会重温他的便笺。', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
   ]);
 
 const playAudio = (word) => {

@@ -25,17 +25,16 @@
 import { ref } from 'vue';
 import { ElMessage } from 'element-plus';
 const words = ref([
-  { word: 'accent', audioUrl: '/static/audios/newaudio2.wav', meaning: 'n.口音;重音;强调;着重点;腔调;变音符号（标在字母上）;土音;<br>vt.强调;突出;着重;', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'adversely', audioUrl: '/static/audios/newaudio2.wav', meaning: 'adv.不利地；反而', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'assurance', audioUrl: '//static/audios/newaudio2.wav', meaning: 'n.保证；担保；自信；人寿保险', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'circulate', audioUrl: '/static/audios/newaudio2.wav', meaning: 'v.循环；(液体或气体)环流；传播；传阅；散布；往来应酬，周旋', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'concept', audioUrl: '/static/audios/newaudio2.wav', meaning: 'n.概念；观念，思想；发明，创造', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'constant', audioUrl: '//static/audios/newaudio2.wav', meaning: 'n.常数；常量<br>adj.恒定的；不断的；不变的；固定的；重复的；连续发生的', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'contrast', audioUrl: '/static/audios/newaudio2.wav', meaning: 'n.对比；对照；反差；明显不同的人(或事物)<br>v.对比；对照；形成对比', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'converse', audioUrl: '/static/audios/newaudio2.wav', meaning: 'vi.交谈；谈话<br>n.相反的事物；(事实或陈述的)反面<br>adj.相反的，逆的，颠倒的', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'criticism', audioUrl: '//static/audios/newaudio2.wav', meaning: 'n.批评；批判；(尤指对书、音乐等的)评论文章，评论；指责；责备', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'detrimental', audioUrl: '/static/audios/newaudio2.wav', meaning: 'adj.有害的，不利的<br>n.有害的人(或物)；不利条件', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'dwell', audioUrl: '/static/audios/newaudio2.wav', meaning: 'vi.居住；栖身', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  { word: 'adversely', audioUrl: '/static/发音练习/8.wav', meaning: 'adv.不利地；反而', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  { word: 'assurance', audioUrl: '/static/发音练习/9.wav', meaning: 'n.保证；担保；自信；人寿保险', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  { word: 'circulate', audioUrl: '/static/发音练习/10.wav', meaning: 'v.循环；(液体或气体)环流；传播；传阅；散布；往来应酬，周旋', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  { word: 'concept', audioUrl: '/static/发音练习/11.wav', meaning: 'n.概念；观念，思想；发明，创造', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  { word: 'constant', audioUrl: '/static/发音练习/12.wav', meaning: 'n.常数；常量<br>adj.恒定的；不断的；不变的；固定的；重复的；连续发生的', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  { word: 'contrast', audioUrl: '/static/发音练习/13.wav', meaning: 'n.对比；对照；反差；明显不同的人(或事物)<br>v.对比；对照；形成对比', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  { word: 'converse', audioUrl: '/static/发音练习/14.wav', meaning: 'vi.交谈；谈话<br>n.相反的事物；(事实或陈述的)反面<br>adj.相反的，逆的，颠倒的', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  { word: 'criticism', audioUrl: '/static/发音练习/15.wav', meaning: 'n.批评；批判；(尤指对书、音乐等的)评论文章，评论；指责；责备', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  { word: 'detrimental', audioUrl: '/static/发音练习/16.wav', meaning: 'adj.有害的，不利的<br>n.有害的人(或物)；不利条件', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  { word: 'dwell', audioUrl: '/static/发音练习/17.wav', meaning: 'vi.居住；栖身', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
 ]);
 
 const playAudio = (word) => {

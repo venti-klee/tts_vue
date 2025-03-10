@@ -8,7 +8,11 @@ import AduioShow from "@/components/AduioShow.vue";
 
 const receivedText = ref(""); // 用于存储从子组件接收到的文本内容
 const audioSettings = ref({});
+const audioSrc = ref(""); // 默认不显示音频
 
+const generateAudio = () => {
+  audioSrc.value = "/static/audio1.wav"; // 点击按钮后赋值音频路径
+};
 const handleAudioSettings = (settings) => {
   audioSettings.value = settings;
 };
@@ -44,26 +48,16 @@ const handleVoiceSelect = (selectedVoiceData) => {
     <el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10" >
       <div>
         <sound-adjust class="sound-adjust-cotainer" @update:audio-settings="handleAudioSettings"></sound-adjust>
-        <button class="btn1">生成音频</button>
+        <button class="btn1" @click="generateAudio">生成音频</button>
       </div>
 
     </el-col>
   </el-row>
 
   <!--音频输出-->
-  <el-row class="audio-show">
-    <aduio-show ></aduio-show>
+  <el-row  class="audio-show">
+    <aduio-show :src="audioSrc"></aduio-show>
   </el-row>
-<!--  音频输出-->
-<!--  测试传参-->
-<!--  <div class="parent-container">-->
-<!--    <div>-->
-<!--      <h3>父组件接收到的文本内容：</h3>-->
-<!--      <pre>{{ receivedText }}</pre>-->
-<!--      <p>已选择的声音样本: {{ selectedVoice ? selectedVoice.name : '无' }}</p>-->
-
-<!--    </div>-->
-<!--  </div>-->
 </div>
 </template>
 
@@ -77,6 +71,7 @@ const handleVoiceSelect = (selectedVoiceData) => {
     margin-left:40px;
     width:680px;
     margin-top:-70px;
+    height:220px;
   }
   .sound-adjust-cotainer{
     /* margin-right:60px; */
@@ -85,7 +80,7 @@ const handleVoiceSelect = (selectedVoiceData) => {
     margin-top:20px;
   }
   .audio-show{
-    margin-top:30px;
+    margin-top:40px;
     margin-left:40px;
   }
   .btn1{

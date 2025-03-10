@@ -299,7 +299,7 @@ const resetForm = () => {
     border-left: 0.5px solid rgba(255,255,255,0.3);
     box-shadow: -6px -6px 16px 0 rgba(255, 255, 255, 0.14), -3px -3px 6px -4px rgba(255, 255, 255, 0.08);
     overflow-y: auto; /* 允许纵向滚动 */
-    height:230px;
+    height:100%;
     margin-top:5px;
     display: flex;
     flex-wrap: wrap;
