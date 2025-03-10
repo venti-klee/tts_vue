@@ -1,8 +1,9 @@
 <script setup>
 
 import QuestionUploader from "@/components/QuestionUploader.vue";
-import QuestionExpress from "@/components/QuestionExpress.vue";
+// import QuestionExpress from "@/components/QuestionExpress.vue";
 import {ref} from "vue";
+import QuestionExpresscopy from "@/components/QuestionExpresscopy.vue";
 const selectedQuestion = ref(null);
 
 const handleQuestionSelected = (question) => {
@@ -18,7 +19,8 @@ const handleQuestionSelected = (question) => {
 
     </el-col>
       <el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10" >
-        <question-express :selectedQuestion="selectedQuestion"></question-express>
+<!--        <question-express :selectedQuestion="selectedQuestion"></question-express>-->
+        <question-expresscopy :selectedQuestion="selectedQuestion" ></question-expresscopy>
       </el-col>
 
   </el-row>

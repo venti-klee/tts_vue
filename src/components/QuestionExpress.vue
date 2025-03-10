@@ -39,37 +39,21 @@ export default {
       explanationsMap: {
         "错题1(1).jpg": `
     这道题目要求找出计算错误的选项。我们来逐个分析每个选项：
-
-    A. $$3x^{-2} = \\frac{1}{3x^2}$$
-    这个选项是错误的。根据指数法则，$$x^{-n} = \\frac{1}{x^n}$$，所以正确的表达应该是 $$3x^{-2} = \\frac{3}{x^2}$$。
-
-    B. $$(-1)^{-1} = -1$$
-    这个选项是正确的。因为任何数的-1次幂等于它的倒数，所以 $$(-1)^{-1} = \\frac{1}{-1} = -1$$。
-
-    C. $$(-2)^{-2} = \\frac{1}{4}$$
-    这个选项也是正确的。因为 $$(-2)^{-2} = \\frac{1}{(-2)^2} = \\frac{1}{4}$$。
-
-    D. $$(-x)^{-3} = -\\frac{1}{x^3}$$
-    这个选项是正确的。因为 $$(-x)^{-3} = \\frac{1}{(-x)^3} = -\\frac{1}{x^3}$$。
-
+    A. $$3x^{-2} = \\frac{1}{3x^2}$$ 是错误的。
+    B. $$(-1)^{-1} = -1$$ 是正确的。
+    C. $$(-2)^{-2} = \\frac{1}{4}$$ 是正确的。
+    D. $$(-x)^{-3} = -\\frac{1}{x^3}$$ 是正确的。
     所以，计算错误的选项是 A。
   `,
         "错题1(2).jpg": `
           首先，我们来分析题目中的数学表达式：
           $$4 \\times 2^5 \\div 32 \\times (-2)^6$$
-
-          根据指数法则，我们可以逐步计算这个表达式：
           计算 $$2^5$$ 和 $$(-2)^6$$：
           $$2^5 = 32$$
           $$(-2)^6 = 64$$（因为负数的偶数次幂结果为正数）
-
           将这些值代入原始表达式：
-          $$4 \\times 32 \\div 32 \\times 64$$
-
-          简化表达式：
-          $$4 \\times 1 \\times 64 = 256$$（因为 $$32 \\div 32 = 1$$）
-
-          所以，表达式 $$4 \\times 2^5 \\div 32 \\times (-2)^6$$ 的结果是 256。
+          $$4 \\times 32 \\div 32 \\times 64 = 256$$
+          所以，表达式的结果是 256。
         `,
       },
       messages: [],
@@ -88,8 +72,9 @@ export default {
   },
   watch: {
     selectedQuestion(newVal) {
-      if (newVal && !this.initialMessageAdded) {
-        this.addInitialMessage();
+      if (newVal) {
+        this.messages = []; // 清空现有消息
+        this.addInitialMessage(); // 添加新问题的初始消息
       }
     }
   },
@@ -104,8 +89,11 @@ export default {
   methods: {
     addInitialMessage() {
       if (this.explanation) {
-        this.addMessage('bot', this.explanation);
-        this.initialMessageAdded = true; // 设置标志位为已添加
+        this.messages.push({ user: false, content: this.explanation }); // 添加解释作为第一条消息
+        this.$nextTick(() => {
+          this.renderMathJax();
+          this.scrollToBottom();
+        });
       }
     },
     sendMessage() {
