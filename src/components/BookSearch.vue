@@ -1,60 +1,68 @@
 <template>
   <div>
-    <div class="filter-bar">
-      <el-row :gutter="20" type="flex" justify="start" align="middle">
+    <!-- 筛选导航栏 -->
+    <div class="main1">
+      <el-row :gutter="20" type="flex" justify="start" align="middle" class="filter-bar">
         <el-col :span="16">
-          <div class="filter-group">
-            <span>教育阶段:</span>
-            <el-button
-                v-for="stage in stages"
-                :key="stage"
-                :class="{'is-active': selectedStage === stage}"
-                @click="filterByStage(stage)">
-              {{ stage }}
-            </el-button>
-          </div>
-          <div class="filter-group">
-            <span>语言语种:</span>
-            <el-button
-                v-for="language in languages"
-                :key="language"
-                :class="{'is-active': selectedLanguage === language}"
-                @click="filterByLanguage(language)">
-              {{ language }}
-            </el-button>
+          <div class="filter-groups">
+            <div class="filter-group">
+              <span>教育阶段:</span>
+              <button
+                  v-for="stage in stages"
+                  :key="stage"
+                  :class="{'is-active': selectedStage === stage}"
+                  @click="filterByStage(stage)">
+                {{ stage }}
+              </button>
+            </div>
+
+            <div class="filter-group">
+              <span>语言语种:</span>
+              <button
+                  v-for="language in languages"
+                  :key="language"
+                  :class="{'is-active': selectedLanguage === language}"
+                  @click="filterByLanguage(language)">
+                {{ language }}
+              </button>
+            </div>
           </div>
         </el-col>
-        <el-col :span="8" style="display: flex; align-items: center;">
+
+        <!-- 搜索框 -->
+        <el-col :span="8"  class="search-container">
           <div class="search-group">
             <el-input
                 v-model="searchQuery"
-                placeholder="搜索书本名称"
+                placeholder="搜索书本名称..."
                 clearable>
             </el-input>
-            <el-button type="primary" @click="searchBooks" style="margin-left: 10px;">搜索</el-button>
+            <button type="primary" @click="searchBooks" style="margin-left: 10px;">搜索</button>
           </div>
         </el-col>
       </el-row>
     </div>
 
+    <!-- 筛选结果 -->
     <div class="total-books">
       {{ totalBooksText }}
     </div>
 
     <div class="book-display">
-      <el-row :gutter="20" class="book-row">
-        <el-col v-for="book in displayedBooks" :key="book.id" :span="4">
-          <el-card shadow="hover" class="book-card" @click="selectBook(book)">
+      <div class="book-row">
+        <div v-for="book in displayedBooks" :key="book.id" >
+          <div class="book-card" @click="selectBook(book)">
             <img :src="book.cover" class="book-cover" alt="Book Cover" />
             <div class="book-title">{{ book.title }}</div>
-          </el-card>
-        </el-col>
-      </el-row>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <el-pagination
+    <!-- 翻页 -->
+    <el-pagination class="pagination"
         background
-        layout="prev, pager, next"
+        layout="prev, pager, next, jumper"
         :total="totalBooks"
         :page-size="pageSize"
         @current-change="handlePageChange"
@@ -71,16 +79,19 @@ const selectedStage = ref('全部');
 const selectedLanguage = ref('全部');
 const searchQuery = ref('');
 const books = ref([
-  { id: 1, title: '新编大学英语', cover: '/static/英语书/新编大学英语.jpeg', stage: '本科及以上', language: '英语' },
-  { id: 2, title: '大学英语口语教程', cover: '/static/英语书/大学英语口语教程（下册）.jpg', stage: '本科及以上', language: '英语' },
-  { id: 3, title: '大学英语', cover: '/static/英语书/大学英语.jpeg', stage: '本科及以上', language: '英语' },
-  { id: 4, title: '大学英语六级5500词逻辑辨证记忆', cover: '/static/英语书/大学英语六级5500词逻辑辨证记忆.jpeg', stage: '本科及以上', language: '英语' },
-  { id: 5, title: '大学英语四级词汇手册', cover: '/static/英语书/大学英语四级词汇手册.jpeg', stage: '本科及以上', language: '英语' },
-  { id: 6, title: '新思路大学英语', cover: '/static/英语书/新思路大学英语.jpeg', stage: '本科及以上', language: '英语' },
-  { id: 7, title: 'English Vocabulary in Use', cover: '/static/英语书/English Vocabulary in Use.jpeg', stage: '本科及以上', language: '英语' },
+  { id: 1, title: '《新编大学英语》', cover: '/static/英语书/新编大学英语.jpeg', stage: '本科及以上', language: '英语' },
+  { id: 2, title: '《大学英语口语教程》', cover: '/static/英语书/大学英语口语教程（下册）.jpg', stage: '本科及以上', language: '英语' },
+  { id: 3, title: '《大学英语》', cover: '/static/英语书/大学英语.jpeg', stage: '本科及以上', language: '英语' },
+  { id: 4, title: '《六级5500词逻辑辨证记忆》', cover: '/static/英语书/大学英语六级5500词逻辑辨证记忆.jpeg', stage: '本科及以上', language: '英语' },
+  { id: 5, title: '《大学英语四级词汇手册》', cover: '/static/英语书/大学英语四级词汇手册.jpeg', stage: '本科及以上', language: '英语' },
+  { id: 6, title: '《人教版八年级下英语书》', cover: '/static/英语书/人教版八年级下英语书.jpeg', stage: '初中', language: '英语' },
+  { id: 7, title: '《人教版三年级上英语书》', cover: '/static/英语书/人教版三年级上英语书.png', stage: '小学', language: '英语' },
+  { id: 8, title: '《人教版高中英语必修3》', cover: '/static/英语书/人教版高中英语必修3.jpeg', stage: '高中', language: '英语' },
+  { id: 9, title: '《人教版高中英语选修9》', cover: '/static/英语书/人教版高中英语选修9.jpeg', stage: '高中', language: '英语' },
+  { id: 10, title: '《英语四级词汇分频速记》', cover: '/static/英语书/英语四级词汇分频速记.jpg', stage: '本科及以上', language: '英语' },
 ]);
 const displayedBooks = ref([]);
-const pageSize = ref(5);
+const pageSize = ref(8);
 const currentPage = ref(1);
 
 const totalBooks = computed(() => displayedBooks.value.length);
@@ -125,7 +136,7 @@ const handlePageChange = (page) => {
 };
 
 const totalBooksText = computed(() => {
-  return `共有 ${totalBooks.value} 本书籍`;
+  return `共有 ${totalBooks.value} 个结果 。`;
 });
 
 const selectBook = (book) => {
@@ -136,64 +147,134 @@ const emit = defineEmits(['select-book']);
 </script>
 
 <style scoped>
+.main1{
+  width:100%;
+  padding:0px;
+  margin-left:10px;
+}
 .filter-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f0f8ff;
-  padding: 10px;
+  position:relative;
+  width:100%;
+  margin-right:-20px;
+  background-image: linear-gradient(to right, #25AEBF, #FFFFFF);
+  padding: 15px 0 15px 40px;
   margin-bottom: 20px;
-}
-
-.filter-group {
-  display: flex;
-  align-items: center;
-  margin-right: 20px;
-}
-
-.search-group {
-  display: flex;
-  align-items: center;
-}
-
-.is-active {
-  background-color: #409eff;
-  color: white;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  .filter-groups{
+    gap:10px;
+    display: flex; 
+    flex-direction:column;
+  }
+  .filter-group {
+    font-size:16px;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    button{
+      margin-left:40px;
+      background-color:transparent ;
+      color: #767A7D;
+      border:none;
+    }
+    button:hover{
+      color:white;
+    }
+    button.is-active {
+      margin-left:40px;
+      background-color:transparent ;
+      color: white;
+      border:none;
+    }
+  }
+  .search-container{
+    display: flex;
+    .search-group {
+      display: flex;
+      align-items: center;
+      button{
+        background-color:#25AEBF;
+        width:80px;
+        height:30px;
+        border:none;
+        color:white;
+        font-size:14px;
+        border-radius:5px;
+      }
+      button:hover{
+        background-color:#1D94A4;
+      }
+    }
+  }
 }
 
 .total-books {
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-.book-card {
-  width: 100%;
-  height: 200px; /* 固定卡片高度 */
-  border: none; /* 移除卡片边框 */
-  box-shadow: none; /* 移除卡片阴影 */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-bottom: 20px; /* 增加卡片之间的垂直间距 */
-  cursor: pointer; /* 鼠标悬停时显示为手型 */
-}
-
-.book-cover {
-  width: 100%;
-  height: 150px; /* 固定图片高度 */
-  object-fit: cover; /* 确保图片覆盖整个卡片 */
-}
-
-.book-title {
   font-size: 14px;
-  color: #333;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  color: #767A7D;
+  margin-bottom: 20px;
+  margin-left:20px;
+}
+.book-display{
+  width:100%;
+  .book-row {
+    padding-right:40px;  
+    display:flex;
+    flex-wrap: wrap;
+    gap:40px 60px; 
+    .book-card {
+      width:180px;
+      margin-left:10px;
+      padding:10px 0px;
+      border-radius: 5px;;
+      background-color: #3C434B;
+      border-top: 0.5px solid rgba(255,255,255,0.3);
+      border-left: 0.5px solid rgba(255,255,255,0.3);
+      box-shadow: 6px 6px 16px 0 rgba(255, 255, 255, 0.14), 3px 3px 6px -4px rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer; /* 鼠标悬停时显示为手型 */
+      .book-cover {
+        width: 120px;
+        height:160px;
+        object-fit: cover; /* 保持图片比例并填充容器 */
+      }
+
+      .book-title {
+        font-size: 14px;
+        color: white;
+        margin-top:10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
+.pagination{
+  margin-top:40px;
+  margin-left:-40px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+/* 修改选中页码的颜色 */
+::v-deep(.el-pager .number.is-active),
+::v-deep(.el-pager .number:hover) {
+  background-color: #25AEBF !important; /* 设置选中页码的字体颜色 */
+  color:white;
+  font-weight: bold; /* 可选，增加加粗效果 */
+  margin: 0 10x; /* 页码间距 10px */
+}
+/* 设置页码之间的间隔 */
+::v-deep(.el-pager .number) {
+  margin: 0 2px; /* 页码间距 10px */
+  transition: all 0.3s ease-in-out; 
 }
 
-.book-row {
-  margin-bottom: 20px; /* 增加行与行之间的垂直间距 */
-}
+
 </style>

@@ -25,18 +25,13 @@
 import { ref } from 'vue';
 import { ElMessage } from 'element-plus';
 const words = ref([
-  { word: 'accent', audioUrl: '/static/audios/newaudio2.wav', meaning: 'n.口音;重音;强调;着重点;腔调;变音符号（标在字母上）;土音;<br>vt.强调;突出;着重;', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'adversely', audioUrl: '/static/audios/newaudio2.wav', meaning: 'adv.不利地；反而', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'assurance', audioUrl: '//static/audios/newaudio2.wav', meaning: 'n.保证；担保；自信；人寿保险', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'circulate', audioUrl: '/static/audios/newaudio2.wav', meaning: 'v.循环；(液体或气体)环流；传播；传阅；散布；往来应酬，周旋', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'concept', audioUrl: '/static/audios/newaudio2.wav', meaning: 'n.概念；观念，思想；发明，创造', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'constant', audioUrl: '//static/audios/newaudio2.wav', meaning: 'n.常数；常量<br>adj.恒定的；不断的；不变的；固定的；重复的；连续发生的', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'contrast', audioUrl: '/static/audios/newaudio2.wav', meaning: 'n.对比；对照；反差；明显不同的人(或事物)<br>v.对比；对照；形成对比', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'converse', audioUrl: '/static/audios/newaudio2.wav', meaning: 'vi.交谈；谈话<br>n.相反的事物；(事实或陈述的)反面<br>adj.相反的，逆的，颠倒的', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'criticism', audioUrl: '//static/audios/newaudio2.wav', meaning: 'n.批评；批判；(尤指对书、音乐等的)评论文章，评论；指责；责备', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'detrimental', audioUrl: '/static/audios/newaudio2.wav', meaning: 'adj.有害的，不利的<br>n.有害的人(或物)；不利条件', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-  { word: 'dwell', audioUrl: '/static/audios/newaudio2.wav', meaning: 'vi.居住；栖身', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
-]);
+  { word: 'The truly humorous individual is often the focus of attention in any gathering.', audioUrl: '/static/audios/newaudio2.wav', meaning: '一个真正有幽默感的人在任何聚会上常常是注意力的核心。', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  { word: 'Puns require more subtle and sophisticated language skills than other humor forms.', audioUrl: '/static/audios/newaudio2.wav', meaning: '双关语与其他幽默形式相较需要更细微、更巧妙的语言技能。', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  { word: 'This is a world which is safe and predictable until a murder shatters people’s lives. ', audioUrl: '/static/audios/newaudio2.wav', meaning: '在一场谋杀案打乱了人们的生活之前，这是一个安宁、可预测的世界。', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  { word: 'There seems no doubt that music will continue to exert its attraction.', audioUrl: '/static/audios/newaudio2.wav', meaning: '毫无疑问，音乐会继续发挥它的诱惑力。', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  { word: 'Because I was a teenager then, his words couldn’t have been more inspiring.', audioUrl: '/static/audios/newaudio2.wav', meaning: '因为那时我是个十几岁的小伙子，所以他的话最鼓舞人心了。', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  { word: 'Whenever I doubted I had the right stuff to be a writer，I would reread his note.', audioUrl: '/static/audios/newaudio2.wav', meaning: '每当我怀疑自己不是看成家的料时，便会重温他的便笺。', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
+  ]);
 
 const playAudio = (word) => {
   console.log(`Playing audio: ${word.audioUrl}`);
@@ -144,14 +139,14 @@ const simulateScoring = (index) => {
   .word-card {
     border: none;
     padding: 10px;
-    width: 45%;
     height:90px;
     text-align: center;
     .audio-control {
       margin: 10px 0;
       display:flex;
-      align-items: center;
+      
       gap:10px;
+      font-size:14px;
       .btn-img{
         width:23px;
         height:23px;
@@ -161,7 +156,10 @@ const simulateScoring = (index) => {
       color:#D7D7D7;
       font-size:14px;
       display:flex;
-      text-align: left; /* 文字从左到右排列 */
+      /* text-align: left; 文字从左到右排列 */
+      align-items: center;
+      justify-content: center;
+      padding-right:40px;
     }
   }
 
