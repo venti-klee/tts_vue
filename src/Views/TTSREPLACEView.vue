@@ -1,6 +1,5 @@
 <script setup>
 
-import VideoPage from "@/components/VideoPage.vue";
 </script>
 
 <template>
