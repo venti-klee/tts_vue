@@ -1,5 +1,6 @@
 <template>
   <div class="index">
+    <floating-ball></floating-ball>
     <!-- 全局粒子动态背景 -->
     <vue-particles
         id="tsparticles"
@@ -45,7 +46,11 @@
 // import {UserFilled} from "@element-plus/icons-vue";
 // import {ElMessage} from "element-plus";
 // import {useRouter} from "vue-router";
+
+import FloatingBall from "@/components/FloatingBall.vue";
+
 export default {
+  components: {FloatingBall},
   data() {
     return {
       dropdownVisible: false, // 控制下拉菜单的显示和隐藏
