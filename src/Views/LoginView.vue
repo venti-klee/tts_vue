@@ -14,21 +14,6 @@
     </div>
   </div>
 
-  <el-dialog v-model="showLogin" title="Warning" width="500" center>
-    <span>
-      It should be noted that the content will not be aligned in center by
-      default
-    </span>
-    <template #footer>
-      <div class="dialog-footer">
-        <el-button @click="showLogin = false">Cancel</el-button>
-        <el-button type="primary" @click="showLogin = false">
-          Confirm
-        </el-button>
-      </div>
-    </template>
-  </el-dialog>
-
   <div class="main-contant">
     <!-- 第一页 -->
     <div class="page1">
@@ -133,39 +118,122 @@
       </div>
     </div>
   </div>
-  
-  <!-- 登录窗口 -->
-  <!-- <div class="content">
-    <el-form :model="form" ref="loginForm" @submit.prevent="handleLogin" class="form1">
+  <el-dialog 
+    width="360" 
+    v-model="showLogin" 
+    center 
+    :show-close="false"
+    top="22vh"
+    custom-class="vDialog"
+  >
+    <el-form ref="loginForm" :model="loginData" :rules="rules" status-icon>
       <div class="btn">
-        <el-button type="primary" @click="handleRegister" class="btn1">注册</el-button>
-        <el-button type="success" @click="handleLogin" class="btn2">登录</el-button>
+        <button :class="isRegister ? 'btn1' : 'btn2'"  @click.prevent="isRegister = true">注册</button>
+        <button :class="isRegister ? 'btn2' : 'btn1'"  @click.prevent="isRegister = false">登录</button>
+      </div>
+      
+      <div class="input-group">
+        <el-form-item prop="userid">
+          <el-input v-model="loginData.userid" placeholder="账号"></el-input>
+        </el-form-item>
+
+        <el-form-item prop="userpass">
+          <el-input type="password" v-model="loginData.userpass" placeholder="密码"></el-input>
+        </el-form-item>
+
+        <el-form-item v-if="isRegister" prop="comfirmedpass">
+          <el-input type="password" v-model="loginData.comfirmedpass" placeholder="确认密码"></el-input>
+        </el-form-item>
       </div>
 
-      <div class="input-group">
-        <el-input v-model="form.userid" placeholder="账号"></el-input>
+      <div class="footer">
+        <div class="dialog-footer">
+          <button class="btn3" @click.prevent="submitForm">{{ isRegister ? "注册" : "登录" }}</button>
+          <button class="btn4" @click="showLogin = false">取消</button>
+        </div>
       </div>
-      <div class="input-group">
-        <el-input type="password" v-model="form.password" placeholder="密码"></el-input>
-      </div>
-      <el-button type="warning" native-type="submit" class="btn3">登录</el-button>
     </el-form>
-  </div> -->
-
+  </el-dialog>
 </template>
+
 
 <script>
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { watch } from "vue";
+import { ElMessage } from 'element-plus';
 export default {
   setup() {
     const router = useRouter();
     const loginForm = ref(null);
     const showLogin = ref(false);
-    const username = ref('');
-    const password = ref('');
-    
+    const isRegister = ref(false);
+    // 存储用户输入的数据
+    const loginData = ref({
+      userid: '',
+      userpass: '',
+      comfirmedpass: '',
+    });
+    // 账号 & 密码规则
+    const rules = {
+      userid: [
+        { required: true, message: '请输入账号', trigger: 'blur' },
+        { max: 20, message: '账号长度不能超过20位', trigger: 'blur' }
+      ],
+      userpass: [
+        { required: true, message: '请输入密码', trigger: 'blur' },
+        { min: 8, message: '密码长度不能小于8位', trigger: 'blur' },
+        { 
+          validator: (rule, value, callback) => {
+            const hasLetter = /[a-zA-Z]/.test(value);
+            const hasNumber = /[0-9]/.test(value);
+            const hasSpecial = /[^a-zA-Z0-9]/.test(value);
+            if (!hasLetter || !hasNumber || !hasSpecial) {
+              callback(new Error('密码必须包含字母、数字和特殊字符'));
+            } else {
+              callback();
+            }
+          },
+          trigger: 'blur'
+        }
+      ],
+      comfirmedpass: [
+        { required: true, message: "请确认密码", trigger: "blur" },
+        {
+          validator: (rule, value, callback) => {
+            if (value !== loginData.value.userpass) { // ✅ 这里修正
+              callback(new Error("两次输入的密码不一致"));
+            } else {
+              callback();
+            }
+          },
+          trigger: "blur",
+        },
+      ],
+    };
+    const switchMode = (mode) => {
+      isRegister.value = mode;
+    };
+    // 提交表单
+    const submitForm = () => {
+      if (!loginForm.value) {
+        return;
+      }
+
+      loginForm.value.validate((valid) => {
+        if (valid) {
+          if (isRegister.value) { 
+            ElMessage.success('注册成功！');
+          } else {
+            ElMessage.success('登录成功！');
+          }
+          showLogin.value = false;
+          router.push('/index'); 
+        } else {
+          ElMessage.error('请检查输入信息');
+        }
+      });
+    };
     const activeStep = ref(0); // 默认选中 Step 1
     const steps = ref([
       { title: "音频输出", imgSrc: "/static/首页/11.png", details:"智能语音，自由调控，声音表达更生动"},
@@ -187,15 +255,7 @@ export default {
     watch(showLogin, (newVal) => {
       console.log("showLogin 变化:", newVal);
     });
-    const login = () => {
-      if (username.value && password.value) {
-        alert(`登录成功: ${username.value}`);
-        showLogin.value = false;
-        router.push('/indexView');
-      } else {
-        alert('请输入用户名和密码');
-      }
-    };
+    
     // 设置当前 step
     const setActiveStep = (index) => {
       activeStep.value = index;
@@ -210,7 +270,21 @@ export default {
       { text: '登录', icon: "/static/返回.png" }
     ];
 
-    return { handleClick,login, router,loginForm, menuItems,activeStep,steps,sliderStyle,setActiveStep};
+    return { handleClick,
+      router,
+      loginForm,
+      menuItems,
+      activeStep,
+      steps,
+      sliderStyle,
+      setActiveStep,
+      showLogin,
+      loginData, 
+      rules, 
+      isRegister,
+      submitForm,
+      switchMode,
+       };
   }
 };
 </script>
@@ -486,117 +560,121 @@ export default {
     }
   }
 }
-
-/* 遮罩层 */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+:deep(.el-form-item){
+  margin:0;
+  padding:0;
+  width:90%;
 }
-
-/* 登录框 */
-.login-box {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 300px;
-  text-align: center;
-}
-
-/* 登录/注册切换按钮 */
-.tab-buttons {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 15px;
-}
-.tab-buttons button {
+.el-dialog , :deep(.el-dialog) {
+  background-color: rgba(255, 255, 255, 0.38) !important;
+  backdrop-filter: blur(3px);
   border: none;
-  background: transparent;
-  padding: 10px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: 0.3s;
-}
-.tab-buttons .active {
-  font-weight: bold;
-  border-bottom: 2px solid #007BFF;
-}
-
-/* 输入框 */
-.form-group input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-/* 按钮组 */
-.button-group button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-.login-btn {
-  background: #007BFF;
-  color: white;
-}
-.cancel-btn {
-  background: #ccc;
-}
-
-.form1 {
-  background-color: rgba(255, 255, 255, 0.25);
-  border: 1px solid white;
-  width: 450px;
-  height: 300px;
+  width: 400px;
+  height: 560px;
   border-radius: 60px;
-  box-shadow: 10px 10px 17px -10px rgba(255, 255, 255, 0.65);
+  box-shadow: 10px 10px 9px -8px rgba(255, 255, 255, 0.65);
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  margin: 0 auto;
+  margin-top:200px;
 }
 
+:deep(.el-dialog__header) {
+  display: none; /* 隐藏头部 */
+}
 .btn {
   display: flex;
   align-items: center;
-  gap: 80px;
-  margin-top: 20px;
-}
-
-.el-button {
-  /* 自定义Button样式 */
-  background-color: #25AEBF;
-  color: white;
-  font-size: 20px;
-  width: 80px;
-  height: 30px;
-  border-radius: 20px;
-  display: flex;
   justify-content: center;
-  align-items: center;
-  box-shadow: -4px -4px 10px 2px rgba(54, 57, 60, 0.92);
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+  margin-top:0px;
+  gap: 80px;
+  border:none;
+  width:100%;
+  .btn1{
+    width:80px;
+    padding:5px 8px;
+    border:none;
+    background-color: #60A7F7;
+    color: white;
+    font-size: 16px; 
+    box-shadow: 8px 8px 17px -10px rgba(0, 0, 0, 1);
+    border-radius: 30px;
+  }
+  .btn2{
+    width:80px;
+    padding:5px 8px;
+    border:1px solid black;
+    background-color: white;
+    color: black;
+    font-size: 16px; 
+    box-shadow: none;
+    border-radius: 30px;
+  }
 }
 .input-group {
-  position: relative;
-  width: 300px;
   margin-top: 20px;
+  margin-bottom: 25px;
+  margin-left:30px;
+  margin-right:30px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap:20px;
+  label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+}
+.footer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top:20px;
+  margin-bottom:20px;
+}
+.dialog-footer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+  border:none;
+  width:90%;
+  .btn3{
+    width:100%;
+    height:50%;
+    padding:5px;
+    margin:0;
+    background: linear-gradient(to right, #60A7F7, #EFA8C6); /* 备用渐变样式 */
+    border-right: 0.5px solid rgba(255,255,255,0.3);
+    border-bottom: 0.5px solid rgba(255,255,255,0.3);
+    border-top:none;
+    border-left:none;
+    color: white;
+    font-size: 16px; 
+    box-shadow:none;
+    border-radius: 10px;
+  }
+  .btn4{
+    margin:0;
+    width:100%;
+    height:50%;
+    padding:5px;
+    background: white; 
+    border:#808080 1px solid;
+    color: black;
+    font-size: 16px; 
+    box-shadow:none;
+    border-radius: 10px;
+  }
 }
 
 /* 确保输入框内部有适当的填充和颜色 */
@@ -611,46 +689,12 @@ export default {
   transition: all 0.3s ease;
 }
 
-.input-group label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 10px 0;
-  font-size: 16px;
-  color: #fff;
-  pointer-events: none;
-  transition: all 0.3s ease;
-}
-
 .input-group input:focus ~ label,
 .input-group input:valid ~ label {
   top: -20px;
   font-size: 13px;
   color: #25AEBF;
 }
-
-.btn3 {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  background-color: #25AEBF;
-  color: white;
-  font-size: 20px;
-  width: 200px;
-  height: 40px;
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 4px 4px 10px 2px rgba(54, 57, 60, 0.92);
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.btn3:hover {
-  background-color: #1D94A4;
-}
-
 
 
 </style>

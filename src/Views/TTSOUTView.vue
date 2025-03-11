@@ -9,7 +9,6 @@ import AduioShow from "@/components/AduioShow.vue";
 const receivedText = ref(""); // 用于存储从子组件接收到的文本内容
 const audioSettings = ref({});
 const audioSrc = ref(""); // 默认不显示音频
-
 const generateAudio = () => {
   audioSrc.value = "/static/audio1.wav"; // 点击按钮后赋值音频路径
 };
