@@ -1,10 +1,14 @@
 <script setup>
-
+defineProps({
+  src: String, // 让音频路径变成一个可传入的参数
+});
 </script>
 
 <template>
   <div class="waveform-canvas">
-    <av-waveform src="/static/audio1.wav" 
+    <av-waveform 
+      :src="src"
+      :key="src"
       :played-line-color="'#25AEBF'" 
       :noplayed-line-color="'#E2E2E3'" 
       :playtime-slider-color="'#767A7D'"

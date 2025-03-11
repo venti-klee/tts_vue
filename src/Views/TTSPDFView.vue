@@ -2,7 +2,7 @@
 
 import PDFUploader from "@/components/PDFUploader.vue";
 import SoundAdjust from "@/components/SoundAdjust.vue";
-import VoiceSelector1 from "@/components/VoiceSelector1.vue";
+import VoiceSelector from "@/components/VoiceSelector.vue";
 import { useRouter } from 'vue-router';
 const router = useRouter();
 
@@ -30,7 +30,8 @@ const startGeneratePDF = () => {
           <sound-adjust class="sound-adjust-cotainer"></sound-adjust>
         </el-row>
         <el-row>
-          <voice-selector1 class="voice-select-container"></voice-selector1>
+          <!-- <voice-selector1 class="voice-select-container"></voice-selector1> -->
+          <voice-selector class="voice-select-container"></voice-selector>
         </el-row>
       </el-col>
 

@@ -1,7 +1,6 @@
 <template>
   <div >
     <el-row>
-
         <!-- ppt上传+文本解析 -->
         <el-col :xs="24" :sm="14" :md="14" :lg="14" :xl="14">
           <el-col >
@@ -51,8 +50,6 @@ const router = useRouter();
 const startGenerateVideo = () => {
   // 假设您希望在跳转前执行一些操作，比如开始生成视频
   // generateVideo();
-
-  // 跳转到VideoPage组件，但不改变URL路径
   router.push({ name: 'ppt_video' }, { replace: true });
 };
 const handleAvatarIndexChange = (index) => {
@@ -94,6 +91,7 @@ const handleAvatarIndexChange = (index) => {
   margin-left:40px;
   width:680px;
   margin-top:-10px;
+  height:230px;
 }
 .teacher-select-cotainer{
   margin-left:25px;

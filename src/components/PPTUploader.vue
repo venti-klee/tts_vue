@@ -1,6 +1,8 @@
 <template>
   <div class="upload-container-top">
-    <el-upload class="upload-content"
+    <el-upload 
+      :key="uploadKey"
+      class="upload-content"
       drag
       action="#"
       :limit="1"
@@ -11,7 +13,6 @@
       :auto-upload="false"
       @change="handleChange"
     >
-      <i class="el-icon-upload"></i>
       <div class="el-upload__text">
         <img class="upload-icon" src="/static/上传.png" alt="pic"><br>
         将文件拖到此处 <br>-或-<br> 
@@ -21,16 +22,16 @@
 
     <div class="content-section">
       <p class="title">教学内容</p>
-      <p class="tip">*由PPT内容提取的教学文本</p>
+      <p class="tip">*由上传内容提取的教学文本</p>
       <textarea v-model="teachingContent" rows="10" cols="50" readonly>
       </textarea>
-      <p class="word-count">共 {{ contentLength }} 字</p>
+      <!-- <p class="word-count">共 {{ contentLength }} 字</p> -->
     </div>
   </div>
   
   <div class="language-section">
     <p class="title">语种替换</p>
-    <p class="tip">*选择语言后自动翻译教学文本</p>
+    <p class="tip1">*选择语言后自动翻译教学文本</p>
     <textarea v-model="translatedContent" rows="10" cols="50" readonly></textarea>
   </div>
 </template>
@@ -48,8 +49,14 @@ const languagesMap = {
 };
 const translatedContent = ref('');
 
+const selectedFile = ref(null); // 存储用户上传的文件
+const emit = defineEmits(["file-upload"]); // 触发事件，通知父组件
+
 // 检查文件大小
 const beforeUpload = (file) => {
+  console.log("准备上传的文件:", file);
+  fileList.value = []; 
+
   const isLt500K = file.size / 1024 < 500;
   if (!isLt500K) {
     return false; // 返回false阻止上传
@@ -58,13 +65,27 @@ const beforeUpload = (file) => {
 };
 
 // 文件列表变化处理，用于覆盖旧文件
-const handleChange = (uploadFile) => {
-  if (fileList.value.length >= 1) {
-    handleExceed(uploadFile);
-  } else {
-    fileList.value.push(uploadFile[0]);
-    handleSuccess();
+const handleChange = (uploadFile, uploadFiles) => {
+  console.log("文件上传变化:", uploadFile);
+  console.log("当前文件列表:", uploadFiles);
+
+  if (!uploadFile || uploadFile.length === 0) {
+    console.error("没有获取到文件！");
+    return;
   }
+  const file = uploadFile.raw || uploadFile; // 兼容不同情况
+  console.log("选中的文件:", file);
+  console.log("文件列表:", fileList);
+
+  // // 清空文件列表
+  fileList.value = [];
+
+  // // 立即更新文件列表
+  fileList.value.push(file);
+
+  handleSuccess();
+  emit("file-upload", file); // 触发上传事件
+  console.log("触发 file-upload 事件");
 };
 
 // 当超过文件数量限制时，自动替换旧文件
@@ -93,7 +114,17 @@ watch(() => eventBus.getLanguage(), (newLang) => {
 </script>
 
 <style scoped>
-
+::v-deep .el-upload-list__item {
+  position: absolute;
+  top: -200px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+} 
+::v-deep .el-upload-list__item-info{
+  color: green !important;
+}
 .upload-container-top{
   display:flex;
   margin-top:20px;
@@ -113,8 +144,8 @@ watch(() => eventBus.getLanguage(), (newLang) => {
       z-index:99;
       font-size:14px;
       color:#767A7D;
-      left:10px;
-      margin-top:5px;
+      margin-top:-30px;
+      right:0px;
       height:25px;
     }
     textarea{
@@ -134,7 +165,7 @@ watch(() => eventBus.getLanguage(), (newLang) => {
     }
     .word-count{
       position:absolute;
-      bottom:-5px;
+      bottom:-1px;
       right:10px;
       font-size: 14px;
       color: #666;
@@ -153,6 +184,7 @@ watch(() => eventBus.getLanguage(), (newLang) => {
 .language-section{
   margin-left:40px;
   margin-bottom:10px;
+  position:relative;
   textarea{
     resize: none;
     width: 660px;
@@ -167,13 +199,13 @@ watch(() => eventBus.getLanguage(), (newLang) => {
     border-left: 0.5px solid rgba(255,255,255,0.3);
     box-shadow: -6px -6px 16px 0 rgba(255, 255, 255, 0.14), -3px -3px 6px -4px rgba(255, 255, 255, 0.08);
   }
-  .tip{
+  .tip1{
     position:absolute;
     z-index:99;
     font-size:14px;
     color:#767A7D;
-    left:50px;
-    margin-top:5px;
+    right:-200px;
+    top:10px;
     height:25px;
   }
   .title{
