@@ -1,5 +1,4 @@
 <script setup>
-
 import QuestionUploader from "@/components/QuestionUploader.vue";
 // import QuestionExpress from "@/components/QuestionExpress.vue";
 import {ref} from "vue";
@@ -10,7 +9,6 @@ const handleQuestionSelected = (question) => {
   selectedQuestion.value = question;
 };
 </script>
-
 
 <template>
   <el-row>

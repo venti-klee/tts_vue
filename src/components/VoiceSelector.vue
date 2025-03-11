@@ -152,9 +152,6 @@ onMounted(() => {
   eventBus.onLanguageChanged(updateCurrentLanguage);
 });
 
-
-
-
 // 动态过滤标准音样本
 // eslint-disable-next-line no-unused-vars
 const filteredStandardVoices = computed(() =>

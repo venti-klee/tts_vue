@@ -5,6 +5,7 @@
         id="tsparticles"
         :options="particlesOptions"
     ></vue-particles>
+
     <div class="content">
       <!-- 左侧导航栏 -->
       <div class="left-menu">
@@ -34,19 +35,6 @@
                 <li @click="goToLogin">退出登录</li>
             </ul>
         </div> 
-        
-        <!-- 教学内容和声音样本库 -->
-        <div class="left-top">
-
-        </div>
-        <!-- 音频设置 -->
-        <div class="right-top">
-
-        </div>
-        <!-- 音频播放器 -->
-        <div class="main-bottom">
-
-        </div>
       </div>
 
     </div>
@@ -57,7 +45,6 @@
 // import {UserFilled} from "@element-plus/icons-vue";
 // import {ElMessage} from "element-plus";
 // import {useRouter} from "vue-router";
-
 export default {
   data() {
     return {
