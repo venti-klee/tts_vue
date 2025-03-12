@@ -31,11 +31,19 @@
       <div class="main-content">
         <router-view></router-view> <!-- 这里显示对应的组件 -->
         <div class="dropdown"  ref="dropdown">
+          <el-row>
+            <el-col :offset="20" :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
+              <a class="atext" id="wzayd" title="网站信息无障碍工具条" href="javascript:"  style="color: #1d94a4;justify-self: center; " accesskey="g">无障碍阅读</a>
+            </el-col>
+            <el-col :xs="10" :sm="2" :md="2" :lg="2" :xl="2">
             <img src="/static/个人.png" alt="logo" class="img3"  @click="toggleDropdown">
+            </el-col>
             <ul class="dropdown-menu" v-show="dropdownVisible">
-                <li @click="goToLogin">退出登录</li>
+              <li @click="goToLogin">退出登录</li>
             </ul>
-        </div> 
+          </el-row>
+
+        </div>
       </div>
 
     </div>
@@ -277,6 +285,11 @@ a {
   margin-left:5px;
 
 }
+.atext{
+  position: absolute;  /* 绝对定位 */
+  top: 15px;            /* 距离父元素顶部 20px */
+  z-index: 999;          /* 确保 img3 在其他内容上方显示 */
+}
 .img3 {
   position: absolute;  /* 绝对定位 */
   top: 10px;            /* 距离父元素顶部 20px */
@@ -350,7 +363,7 @@ a {
   width: 100px;
   height:25px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 999; 
+  z-index: 999;
   }
   /* 菜单选项 */
   .dropdown-menu li {

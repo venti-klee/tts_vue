@@ -7,6 +7,9 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
       <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <!-- 无障碍依赖jquery和自由的js脚本，所以需要引入，注意顺序 -->
+      <script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+      <script id="rrbayJs" src="/canyou/js/wza.min.js" referrerpolicy="origin" ></script>
       <script>
           window.MathJax = {
               tex: {
@@ -15,6 +18,28 @@
               options: {
                   renderActions: {}
               }
+          };
+          // window.onerror = function(message, source, lineno, colno, error) {
+          //     console.error(`Error: ${message} at ${source}:${lineno}:${colno}`);
+          //     console.error(error);
+          //     return true; // 阻止错误显示
+          // };
+          // 捕获同步错误
+          window.onerror = function(message, source, lineno, colno, error) {
+              if (message.includes("The play() request was interrupted by a call to pause()")) {
+                  return true; // 阻止显示
+              }
+              console.error(`Error: ${message} at ${source}:${lineno}:${colno}`);
+              console.error(error);
+          };
+
+          // 捕获异步错误
+          window.onunhandledrejection = function(event) {
+              if (event.reason.message.includes("The play() request was interrupted by a call to pause()")) {
+                  event.preventDefault(); // 阻止显示
+                  return;
+              }
+              console.error("Unhandled Promise Rejection:", event.reason);
           };
       </script>
     <title><%= htmlWebpackPlugin.options.title %></title>

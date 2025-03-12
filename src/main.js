@@ -41,6 +41,14 @@ app.use(Particles, {
         }
     },
 });
+app.config.errorHandler = (err, vm, info) => {
+    // 过滤掉特定的错误信息
+    if (err.message.includes("The play() request was interrupted by a call to pause()")) {
+        return; // 不显示该错误
+    }
+    // 其他错误仍然打印到控制台
+    console.error(err, info);
+};
 
 // 挂载应用到 DOM
 app.mount('#app');

@@ -7,6 +7,10 @@
     </div>
     <div class="menu1">
       <ul class="menu-list1">
+        <li>
+          <a id="wzayd" title="网站信息无障碍工具条" href="javascript:;"  style="color: #1d94a4" accesskey="g">无障碍阅读</a>
+        </li>
+
         <li v-for="(item, index) in menuItems" :key="index" @click="showLogin = index === 5">
             <span>{{ item.text }}</span>
         </li>
@@ -314,7 +318,7 @@ export default {
     display:flex;
     justify-items: center;
     align-items: center;
-    width:70%;
+    width:90%;
     .menu-list1{
       display:flex;
       gap:40px;
