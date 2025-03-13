@@ -3,7 +3,7 @@
     <!-- 筛选导航栏 -->
     <div class="main1">
       <el-row  type="flex" justify="start" class="filter-bar">
-        <el-col :span="16">
+        <el-col :span="14">
           <div class="filter-groups">
             <div class="filter-group">
               <span>教育阶段:</span>
@@ -30,7 +30,7 @@
         </el-col>
 
         <!-- 搜索框 -->
-        <el-col :span="8"  class="search-container">
+        <el-col :span="10"  class="search-container">
           <div class="search-group">
             <el-input
                 v-model="searchQuery"
@@ -168,12 +168,13 @@ const emit = defineEmits(['select-book']);
     gap:10px;
     display: flex; 
     flex-direction:column;
+    width:520px;
   }
   .filter-group {
     font-size:16px;
     display: flex;
     align-items: center;
-    margin-right: 20px;
+    margin-left: 10px;
     button{
       margin-left:40px;
       background-color:transparent ;
@@ -192,6 +193,7 @@ const emit = defineEmits(['select-book']);
   }
   .search-container{
     display: flex;
+    margin-right:0px;
     .search-group {
       display: flex;
       align-items: center;

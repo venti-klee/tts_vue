@@ -1,22 +1,75 @@
 <template>
   <div>
-    <!-- 悬浮球 -->
-    <div
-        class="floating-ball"
-        :style="{
-        top: `${top}px`,
-        left: `${left}px`,
-        width: `${size}px`,
-        height: `${size}px`,
-        backgroundImage: `url(${imageUrl})`,
-        animation: shaking ? 'shake 0.1s infinite' : 'none'
-      }"
-        @mousedown="startDrag"
-        @touchstart="startDrag"
-        @mouseenter="showFullBall"
-        @mouseleave="hideBall"
-        @click="toggleDrawer"
-    ></div>
+    <div class="prop">
+      <el-popover v-model:visible="showPopup"  effect="light" trigger="manual" width="350">
+        <template #default>
+          <p>为您推荐：</p>
+          <ul class="recommend-item">
+            <li class="book-item" v-for="book in recommendedBooks" :key="book.id">
+              <img :src="book.imgUrl" alt="book" style="width:90px;height:120px"/>
+              {{ book.title }}
+            </li>
+          </ul>
+          <button class="close-btn" @click="closePopup">我知道了</button>
+        </template>
+        <!-- 触发按钮 -->
+        <template #reference>
+          <!-- 悬浮球 -->
+          <div
+              class="floating-ball"
+              :style="{
+              top: `${top}px`,
+              left: `${left}px`,
+              width: `${size}px`,
+              height: `${size}px`,
+              backgroundImage: `url(${imageUrl})`,
+              animation: shaking ? 'shake 0.1s infinite' : 'none'
+            }"
+              @mousedown="startDrag"
+              @touchstart="startDrag"
+              @mouseenter="showFullBall"
+              @mouseleave="hideBall"
+              @click="toggleDrawer"
+          >
+        </div>
+        </template>
+      </el-popover>
+    </div>
+    <div class="prop">
+      <el-popover v-model:visible="showPopup1"  effect="light" trigger="manual" width="350">
+        <template #default>
+          <p>为您推荐：</p>
+          <ul class="recommend-item">
+            <li class="book-item" v-for="book in recommendedExercises" :key="book.id">
+              <img :src="book.imgUrl" alt="book" style="width:90px;height:120px"/>
+              {{ book.title }}
+            </li>
+          </ul>
+          <button class="close-btn" @click="closePopup1">我知道了</button>
+        </template>
+        <!-- 触发按钮 -->
+        <template #reference>
+          <!-- 悬浮球 -->
+          <div
+              class="floating-ball"
+              :style="{
+              top: `${top}px`,
+              left: `${left}px`,
+              width: `${size}px`,
+              height: `${size}px`,
+              backgroundImage: `url(${imageUrl})`,
+              animation: shaking ? 'shake 0.1s infinite' : 'none'
+            }"
+              @mousedown="startDrag"
+              @touchstart="startDrag"
+              @mouseenter="showFullBall"
+              @mouseleave="hideBall"
+              @click="toggleDrawer"
+          >
+        </div>
+        </template>
+      </el-popover>
+    </div>
 
     <!-- 抽屉 -->
     <el-drawer v-model="drawerVisible" title="聊天窗口" size="50%">
@@ -26,8 +79,48 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {ref, watchEffect } from "vue";
 import {ElDrawer} from "element-plus";
+import { useRoute } from "vue-router";
+const showPopup = ref(false);
+const showPopup1 = ref(false);
+const recommendedBooks = ref([
+  { id: 1, title: "《词汇分频速记》",imgUrl:"/static/英语书/英语四级词汇分频速记.jpg" },
+  { id: 2, title: "《新思路大学英语》",imgUrl:"/static/英语书/新思路大学英语.jpeg" },
+  { id: 3, title: "《大学英语》",imgUrl:"/static/英语书/大学英语.jpeg" },
+]);
+
+const recommendedExercises = ref([
+  { id: 1, title: "《5·3初中数学》",imgUrl:"/static/数学书/数学1.jpeg" },
+  { id: 2, title: "《初中必刷题(数学)》",imgUrl:"/static/数学书/数学2.jpg" },
+  { id: 3, title: "《步步通优(数学)》",imgUrl:"/static/数学书/数学3.jpeg" },
+]);
+const route = useRoute();
+// 监听 route.path，保证每次进入 "/index/tts_test" 都触发弹窗
+watchEffect(() => {
+  console.log("当前路由:", route.path);
+  if (route.path === "/index/tts_test") {
+    setTimeout(() => {
+      showPopup.value = true;
+    }, 15000); // 5秒后弹出
+  } else {
+    showPopup.value = false; // 进入其他页面时自动关闭弹窗
+  }
+  if (route.path === "/index/tts_teacher") {
+    setTimeout(() => {
+      showPopup1.value = true;
+    }, 15000); // 5秒后弹出
+  } else {
+    showPopup1.value = false; // 进入其他页面时自动关闭弹窗
+  }
+});
+const closePopup = () => {
+  showPopup.value = false;
+};
+
+const closePopup1 = () => {
+  showPopup1.value = false;
+};
 
 const size = 120; // 悬浮球大小
 const imageUrl = "/static/robot.png"; // 图片路径
@@ -156,7 +249,38 @@ const hideBall = () => {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1000;
 }
-
+.close-btn{
+  background-color: transparent;
+  color:#767A7D;
+  border:none;
+  position:absolute;
+  right:20px;
+  bottom:10px;
+  text-decoration: underline;
+}
+:deep .el-popover{
+  position:relative;
+  padding-bottom:10px;
+}
+.recommend-item{
+  display: flex;
+  gap:5px;
+  margin-left:-10px;
+  margin-top:10px;
+  align-items: center;
+  justify-content: center;
+  padding-bottom:20px;
+  .book-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size:12px;
+    img{
+      margin-bottom:5px;
+    }
+  }
+}
 /* 抖动动画 */
 @keyframes shake {
   0%, 100% {

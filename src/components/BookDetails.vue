@@ -10,7 +10,7 @@
     <div class="content">
       <div class="section">
         <p class="title">单词</p>
-        <word-practice></word-practice>
+        <word-practice @recording-complete="handleRecordingComplete"></word-practice>
       </div>
 
       <div class="section">
@@ -57,20 +57,20 @@
     </div>
 
     <!-- 推荐词典 -->
-    <div class="recommendations">
+    <!-- <div class="recommendations">
       <p>为您推荐：</p>
       <ul class="recommed-item">
         <li v-for="book in recommendedBooks" :key="book.id">
           《{{ book.title }}》
         </li>
       </ul>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-
+import { defineEmits } from 'vue';
 import WordPractice from "@/components/WordPractice.vue";
 import SentencePractice from "@/components/SentencePractice.vue";
 
@@ -78,18 +78,14 @@ import SentencePractice from "@/components/SentencePractice.vue";
 const props = defineProps({
   selectedBook: Object
 });
-
-const recommendedBooks = ref([
-  { id: 1, title: '英语六级重难点词汇' },
-  { id: 2, title: '英语六级就看他' },
-  { id: 3, title: '六级背词神器' }
-]);
-
+const emit = defineEmits(['select-book', 'recording-complete']);
 const goBack = () => {
     emit('select-book');
 };
-
-const emit = defineEmits(['select-book']);
+// 接收 WordPractice.vue 传来的事件，并继续向上传递
+const handleRecordingComplete = () => {
+  emit('recording-complete');
+};
 </script>
 
 <style scoped>
@@ -169,7 +165,7 @@ const emit = defineEmits(['select-book']);
       border:none;
       position:absolute;
       right:80px;
-      bottom:60px;
+      bottom:35px;
       z-index:999;
       font-size:14px;
     }

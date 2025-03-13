@@ -34,7 +34,7 @@
       <div v-for="(voice, index) in filteredStandardVoices" :key="index" class="voice-item" @click="selectVoice(voice)">
         <el-radio v-model="selectedVoiceId" :label="voice.name" class="radio">{{ '' }}</el-radio>
 <!--        <img class="voice-image" :src="voice.image" alt="voice image" >-->
-        <el-avatar class="voice-image" > {{voice.languages}} </el-avatar>
+        <img class="voice-image" :src="voice.image" alt="voice image" >
         <div class="btn-container">
           <div class="voice-name">{{ voice.name }}</div>
           <img class="voice-btn" src="/static/播放.png" @click.stop="playVoice(voice)" alt="pic">
@@ -114,24 +114,24 @@ const voices = ref([
   { name: '阳光男高', image: require('@/assets/static/男高.jpg'), audio: require('@/assets/static/声音克隆/阳光输出.wav') },
 ])
 const standardvoices = ref([
-  { name: '普通话_女',  audio: require('@/assets/static/标准音/标准女.wav'),languages: '中文' },
-  { name: '普通话_男',  audio: require('@/assets/static/标准音/标准男.wav'),languages: '中文' },
-  { name: '上海话_女',  audio: require('@/assets/static/标准音/标准女_上海话.wav'),languages: '中文' },
-  { name: '上海话_男', audio: require('@/assets/static/标准音/标准男_上海话.wav'),languages: '中文' },
-  { name: '四川话_女', audio: require('@/assets/static/标准音/标准女_四川话.wav') ,languages: '中文'},
-  { name: '四川话_男',audio: require('@/assets/static/标准音/标准男_四川话.wav'),languages: '中文' },
-  { name: '天津话_女',  audio: require('@/assets/static/标准音/标准女_天津话.wav'),languages: '中文' },
-  { name: '天津话_男', audio: require('@/assets/static/标准音/标准男_天津话.wav'),languages: '中文' },
-  { name: '粤语_女', audio: require('@/assets/static/标准音/标准女_粤语.wav') ,languages: '中文'},
-  { name: '粤语_男',audio: require('@/assets/static/标准音/标准男_粤语.wav'),languages: '中文' },
-  { name: '长沙话_女',  audio: require('@/assets/static/标准音/标准女_长沙话.wav'),languages: '中文' },
-  { name: '长沙话_男', audio: require('@/assets/static/标准音/标准男_长沙话.wav'),languages: '中文' },
-  { name: '郑州话_女', audio: require('@/assets/static/标准音/标准女_郑州话.wav') ,languages: '中文'},
-  { name: '郑州话_男',audio: require('@/assets/static/标准音/标准男_郑州话.wav'),languages: '中文' },
-  { name: '标准英音', audio: require('@/assets/static/audios/audio1.wav'),languages: '英语' },
-  { name: '标准美音', audio: require('@/assets/static/audios/audio1.wav'),languages: '英语' },
-  { name: '标准日语', audio: require('@/assets/static/audios/audio1.wav'),languages: '日语' },
-  { name: '标准韩语', audio: require('@/assets/static/audios/audio1.wav'),languages: '韩语' },
+  { name: '普通话_女', image: require('@/assets/static/标准音图片/中国.png'), audio: require('@/assets/static/标准音/标准女.wav'),languages: '中文' },
+  { name: '普通话_男', image: require('@/assets/static/标准音图片/中国.png'),  audio: require('@/assets/static/标准音/标准男.wav'),languages: '中文' },
+  { name: '上海话_女', image: require('@/assets/static/标准音图片/上海.png'),  audio: require('@/assets/static/标准音/标准女_上海话.wav'),languages: '中文' },
+  { name: '上海话_男', image: require('@/assets/static/标准音图片/上海.png'), audio: require('@/assets/static/标准音/标准男_上海话.wav'),languages: '中文' },
+  { name: '四川话_女', image: require('@/assets/static/标准音图片/四川.png'), audio: require('@/assets/static/标准音/标准女_四川话.wav') ,languages: '中文'},
+  { name: '四川话_男', image: require('@/assets/static/标准音图片/四川.png'),audio: require('@/assets/static/标准音/标准男_四川话.wav'),languages: '中文' },
+  { name: '天津话_女', image: require('@/assets/static/标准音图片/天津.png'),  audio: require('@/assets/static/标准音/标准女_天津话.wav'),languages: '中文' },
+  { name: '天津话_男', image: require('@/assets/static/标准音图片/天津.png'), audio: require('@/assets/static/标准音/标准男_天津话.wav'),languages: '中文' },
+  { name: '粤语_女', image: require('@/assets/static/标准音图片/广东.png'), audio: require('@/assets/static/标准音/标准女_粤语.wav') ,languages: '中文'},
+  { name: '粤语_男', image: require('@/assets/static/标准音图片/广东.png'),audio: require('@/assets/static/标准音/标准男_粤语.wav'),languages: '中文' },
+  { name: '长沙话_女', image: require('@/assets/static/标准音图片/长沙.png'),  audio: require('@/assets/static/标准音/标准女_长沙话.wav'),languages: '中文' },
+  { name: '长沙话_男', image: require('@/assets/static/标准音图片/长沙.png'), audio: require('@/assets/static/标准音/标准男_长沙话.wav'),languages: '中文' },
+  { name: '郑州话_女', image: require('@/assets/static/标准音图片/郑州.png'), audio: require('@/assets/static/标准音/标准女_郑州话.wav') ,languages: '中文'},
+  { name: '郑州话_男', image: require('@/assets/static/标准音图片/郑州.png'),audio: require('@/assets/static/标准音/标准男_郑州话.wav'),languages: '中文' },
+  { name: '标准英音', image: require('@/assets/static/标准音图片/英国.png'), audio: require('@/assets/static/audios/audio1.wav'),languages: '英语' },
+  { name: '标准美音', image: require('@/assets/static/标准音图片/英国.png'), audio: require('@/assets/static/audios/audio1.wav'),languages: '英语' },
+  { name: '标准日语', image: require('@/assets/static/标准音图片/日本.png'), audio: require('@/assets/static/audios/audio1.wav'),languages: '日语' },
+  { name: '标准韩语', image: require('@/assets/static/标准音图片/韩国.png'), audio: require('@/assets/static/audios/audio1.wav'),languages: '韩语' },
 ])
 const dialogVisible = ref(false)
 const newVoiceName = ref('')
@@ -152,7 +152,7 @@ onMounted(() => {
   eventBus.onLanguageChanged(updateCurrentLanguage);
 });
 
-// 动态过滤标准音样本
+// // 动态过滤标准音样本
 // eslint-disable-next-line no-unused-vars
 const filteredStandardVoices = computed(() =>
     standardvoices.value.filter(voice => voice.languages.includes(currentLanguage.value.split('-')[0]))

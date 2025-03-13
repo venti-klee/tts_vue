@@ -120,7 +120,7 @@ const simulateScoring = (index) => {
 
 <style scoped>
 .word-practice {
-  height:470px;
+  height:500px;
   margin-top:20px;
   color:white;
   border-radius: 10px;

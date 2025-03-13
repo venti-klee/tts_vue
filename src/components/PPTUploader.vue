@@ -42,7 +42,7 @@ import eventBus from "@/eventBus";
 const fileList = ref([]);
 const teachingContent = ref('');
 const languagesMap = {
-  '中文': '这是一组静态的教学文本，用于展示从PPT提取的文本内容。',
+  '中文': '你好，欢迎使用声动课堂！希望能够为你提供帮助。',
   '英语': 'This is a set of static teaching text, used to display the extracted text from the PPT.',
   '日语': 'これは、PPTから抽出されたテキストを表示するために使用される一連の静的教科書テキストです。',
   '韩语': '이 static 교육 텍스트는 PPT에서 추출 된 텍스트를 표시하기 위해 사용됩니다.'
@@ -97,8 +97,19 @@ const handleExceed = (files) => {
   handleSuccess();
 };
 
-const handleSuccess = () => {
-  teachingContent.value = '这是一组静态的教学文本，用于展示从PPT提取的文本内容。';
+const handleSuccess =  async () => {
+  teachingContent.value = '';
+  translatedContent.value = '';
+  try {
+    const response = await fetch('/static/教学文本.txt'); // 确保文件在 public 目录下
+    if (!response.ok) {
+      throw new Error('❌ 加载失败');
+    }
+    const text = await response.text();
+    teachingContent.value = translatedContent.value = text;
+  } catch (error) {
+    console.error('❌ 读取本地文本失败:', error);
+  }
 };
 
 const handleRemove = () => {
@@ -110,6 +121,7 @@ const contentLength = computed(() => teachingContent.value.length);
 
 watch(() => eventBus.getLanguage(), (newLang) => {
   translatedContent.value = languagesMap[newLang] || teachingContent.value;
+  
 });
 </script>
 

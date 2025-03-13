@@ -22,8 +22,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref,defineEmits } from 'vue';
 import { ElMessage } from 'element-plus';
+const recordCount = ref(0);
+const emit = defineEmits(['recording-complete']); // 声明事件
 const words = ref([
   { word: 'adversely', audioUrl: '/static/发音练习/8.wav', meaning: 'adv.不利地；反而', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
   { word: 'assurance', audioUrl: '/static/发音练习/9.wav', meaning: 'n.保证；担保；自信；人寿保险', score: null, isRecording: false, recordingUrl: '',isPlaying:false, },
@@ -81,6 +83,15 @@ const startRecording = async (index) => {
       word.isRecording = false;
       chunks.length = 0;
       simulateScoring(index);
+
+      // 录音次数 +1
+      recordCount.value++;
+
+      // 录音达到 5 次时，向上触发事件
+      if (recordCount.value >= 5) {
+        eventBus.emit("recording-complete");  // 发送事件
+      }
+
     };
 
     recorder.start();
@@ -124,7 +135,7 @@ const simulateScoring = (index) => {
 
 <style scoped>
 .word-practice {
-  height:470px;
+  height:500px;
   margin-top:20px;
   color:white;
   border-radius: 10px;

@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <floating-ball></floating-ball>
+    <floating-ball :showRecommendation="showRecommendation"></floating-ball>
     <!-- 全局粒子动态背景 -->
     <vue-particles
         id="tsparticles"
@@ -29,7 +29,7 @@
       </div>
       <!-- 右侧内容区 -->
       <div class="main-content">
-        <router-view></router-view> <!-- 这里显示对应的组件 -->
+        <router-view @recording-complete="handleRecordingComplete"></router-view> <!-- 这里显示对应的组件 -->
         <div class="dropdown"  ref="dropdown">
           <el-row>
             <el-col :offset="20" :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
@@ -42,10 +42,8 @@
               <li @click="goToLogin">退出登录</li>
             </ul>
           </el-row>
-
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -54,13 +52,14 @@
 // import {UserFilled} from "@element-plus/icons-vue";
 // import {ElMessage} from "element-plus";
 // import {useRouter} from "vue-router";
-
 import FloatingBall from "@/components/FloatingBall.vue";
+import { ref } from 'vue';
 
 export default {
   components: {FloatingBall},
   data() {
     return {
+      showRecommendation: false,
       dropdownVisible: false, // 控制下拉菜单的显示和隐藏
       particlesOptions: {
         background: {
@@ -178,7 +177,17 @@ export default {
       ]
     }
   },
+  mounted() {
+    eventBus.on("recording-complete", this.handleRecordingComplete); // 监听事件
+  },
+  beforeUnmount() {
+    eventBus.off("recording-complete", this.handleRecordingComplete); // 解绑事件
+  },
   methods: {
+    handleRecordingComplete() {
+      this.showRecommendation = true;
+      console.log("触发 FloatingBall 推荐书籍弹窗");
+    },
     isActive(route) {
       return this.$route.path === route;  // 判断当前路由是否与 menuItem 的 route 相匹配
     },
