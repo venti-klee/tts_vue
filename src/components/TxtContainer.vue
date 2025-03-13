@@ -161,7 +161,6 @@ const toggleRepeat = () => {
   margin-top: 20px;
   width:680px;
   span{
-    background-color:;
     color:#767A7D;
     font-size:18px;
     margin-left:20px;
@@ -262,10 +261,5 @@ const toggleRepeat = () => {
     color: #666;
   }
 }
-
-
-
-
-
 
 </style>

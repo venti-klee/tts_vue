@@ -28,5 +28,8 @@ module.exports = defineConfig({
         pathRewrite: { '^/api': '' },
       },
     },
+    client: {
+      overlay: false,
+    },
   },
 });

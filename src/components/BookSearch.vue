@@ -2,7 +2,7 @@
   <div>
     <!-- 筛选导航栏 -->
     <div class="main1">
-      <el-row :gutter="20" type="flex" justify="start" align="middle" class="filter-bar">
+      <el-row  type="flex" justify="start" class="filter-bar">
         <el-col :span="16">
           <div class="filter-groups">
             <div class="filter-group">
@@ -150,7 +150,7 @@ const emit = defineEmits(['select-book']);
 .main1{
   width:100%;
   padding:0px;
-  margin-left:10px;
+  margin-left:0px;
 }
 .filter-bar {
   display: flex;
@@ -158,7 +158,7 @@ const emit = defineEmits(['select-book']);
   align-items: center;
   position:relative;
   width:100%;
-  margin-right:-20px;
+  margin-left:0px;
   background-image: linear-gradient(to right, #25AEBF, #FFFFFF);
   padding: 15px 0 15px 40px;
   margin-bottom: 20px;

@@ -141,37 +141,37 @@ export default {
       menuItems: [
         {
           route: '/index/tts_out',
-          text: '音频输出',
+          text: '语音生成',
           icon: 'icon-class-name', // 根据实际图标类名调整
           children: null
         },
         {
+          route: '/index/tts_replace',
+          text: '音色重塑',
+          icon: 'icon-class-name',
+          children: null
+        },
+        {
           route: '/index/tts_ppt',
-          text: '有声课件',
+          text: '课件演绎',
           icon: 'icon-class-name',
           children: null
         },
         {
           route: '/index/tts_pdf',
-          text: '有声书',
+          text: '声动教材',
           icon: 'icon-class-name',
           children: null
         },
         {
           route: '/index/tts_test',
-          text: '发音练习',
-          icon: 'icon-class-name',
-          children: null
-        },
-        {
-          route: '/index/tts_replace',
-          text: '声音置换',
+          text: '跟读训练',
           icon: 'icon-class-name',
           children: null
         },
         {
           route: '/index/tts_teacher',
-          text: 'AI教师',
+          text: '智学对话',
           icon: 'icon-class-name',
           children: null
         },

@@ -184,82 +184,146 @@ export default {
 };
 </script>
 <template>
-  <div v-if="selectedQuestion" class="question-express">
-    <!-- 错题详情展示 -->
-    <h3>选中的问题详情</h3>
-    <p><strong>问题:</strong> {{ selectedQuestion.text }}</p>
-    <img :src="selectedQuestion.imgurl" alt="题目图片" style="max-width: 100%; height: auto;"/>
-
-    <!-- 模拟大模型对话界面 -->
-    <div class="chat-container">
-      <div class="messages">
-        <div v-for="(message, index) in messages" :key="index"
-             :class="['message', message.role]">
-          <div class="message-content">{{ message.content }}</div>
+    <div class="title1">问题详解</div>
+    <div class="AI-chat">
+      <div v-if="selectedQuestion" class="question-express">
+        <!-- 错题详情展示 -->
+        <div class="up">
+          <p>题目：</p>
+          <img :src="selectedQuestion.imgurl" alt="题目图片" style="max-width: 100%; height: auto;"/>
+          <span v-html="selectedQuestion.text"></span>
+          <!-- 模拟大模型对话界面 -->
+          <div class="chat-container">
+            <div class="messages">
+              <div v-for="(message, index) in messages" :key="index"
+                  :class="['message', message.role]">
+                <div class="message-content">{{ message.content }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="input-area">
+          <el-input
+              type="textarea"
+              :rows="2"
+              placeholder="请输入您的问题..."
+              v-model="newMessage"
+              @keyup.enter="sendMessage">
+          </el-input>
+          <img src="/static/发送4.png" @click="sendMessage" alt="pic">
         </div>
       </div>
-      <div class="input-area">
-        <el-input
-            type="textarea"
-            :rows="2"
-            placeholder="请输入您的问题..."
-            v-model="newMessage"
-            @keyup.enter="sendMessage">
-        </el-input>
-        <el-button type="primary" @click="sendMessage">发送</el-button>
+      <div v-else>
+        <p>请选择一道错题</p>
       </div>
     </div>
-  </div>
-  <div v-else>
-    <p>请选择一个问题</p>
-  </div>
+
 </template>
 
 <style scoped>
-.question-express {
+.content{
+  width:100%;
+  height:100%;
+  background-color: none;
+  margin-top:20px;
+  display:flex;
+  flex-direction: column;
+}
+.title1{
+  background-color:transparent;
+  color:#767A7D;
+  font-size:18px;
+  margin-left:-5px;
+  margin-top:20px;
+  margin-bottom:0px;
+}
+.AI-chat{
+  margin-top:10px;
+  resize: none;
+  width: 107%;
+  height:610px;
+  max-width: 680px;
+  background-color:rgba(60, 67, 75, 0.66);
+  color:white;
+  border-radius: 10px;
+  border:none;
+  padding:20px 30px;
+  backdrop-filter: blur(5px);
+  border-top: 0.5px solid rgba(255,255,255,0.3);
+  border-left: 0.5px solid rgba(255,255,255,0.3);
+  box-shadow: -6px -6px 16px 0 rgba(255, 255, 255, 0.14), -3px -3px 6px -4px rgba(255, 255, 255, 0.08);
+  margin-left:-25px;
+  .question-express {
+    display: flex;
+    flex-direction: column;
+    position:relative;
+    padding-bottom:0px;
+    img{
+      margin-top:10px;
+      margin-bottom:10px;
+    }
+    .chat-container {
+      border-top: 1px solid #ebeef5;
+      margin-top: 20px;
+      width:100%;
+      overflow-y: auto;
+      position:relative;
+      .messages {
+        overflow-y: auto;
+        padding:0 10px 10px 20px;
+      } 
+    }
+  }
+}
+.up{
+  height: 570px !important;
   display: flex;
   flex-direction: column;
 }
-
-.chat-container {
-  border-top: 1px solid #ebeef5;
-  margin-top: 20px;
-  padding-top: 20px;
-  max-height: 400px;
-  overflow-y: auto;
+.input-area {
+  display: flex;
+  justify-content: space-between;
+  position:absolute;
+  bottom:-40px;
+  width:100%;
+  :deep .el-input{
+    position: relative;
+    height:60px;
+    resize: none !important; /* 禁止手动调整大小 */
+    overflow-y: auto !important; /* 自动显示竖向滚动条 */
+  }
+  img{
+    width:30px;
+    height:30px;
+    position: absolute;
+    bottom:0px;
+    right:10px;
+    z-index:999;
+  }
 }
-
-.messages {
-  max-height: 300px;
-  overflow-y: auto;
-  margin-assistanttom: 10px;
-}
-
 .message {
   margin: 10px 0;
   padding: 10px;
   border-radius: 10px;
   width: fit-content;
-  max-width: 80%;
+  max-width: 100%;
   box-sizing: border-box;
 }
 
 /* 用户消息样式 */
 .message.user {
-  background-color: #d1e7dd; /* 浅绿色背景 */
+  background-color: #25AEBF; 
   align-self: flex-end; /* 对齐到右侧 */
-  margin-right: 10px;
+  margin-right: 30px;
+  color:white;
 }
 
 /* 助手消息样式 */
 .message.assistant {
-  background-color: #f8d7da; /* 浅红色背景 */
+  background-color: #f2969d; /* 浅红色背景 */
   align-self: flex-start; /* 对齐到左侧 */
-  margin-left: 10px;
+  margin-left: 30px;
 }
 
-.input-area {
-  display: flex;
-  justify-content: space-between;
-}
+
 </style>

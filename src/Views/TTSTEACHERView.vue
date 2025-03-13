@@ -12,18 +12,27 @@ const handleQuestionSelected = (question) => {
 
 <template>
   <el-row>
-    <el-col :xs="24" :sm="14" :md="14" :lg="14" :xl="14" >
-      <question-uploader  @question-selected="handleQuestionSelected"></question-uploader>
-
+    <el-col :xs="24" :sm="10" :md="10" :lg="13" :xl="10" >
+      <question-uploader  class="question-uploader-container" @question-selected="handleQuestionSelected"></question-uploader>
     </el-col>
-      <el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10" >
-<!--        <question-express :selectedQuestion="selectedQuestion"></question-express>-->
-        <question-expresscopy :selectedQuestion="selectedQuestion" ></question-expresscopy>
+      <el-col :xs="24" :sm="10" :md="10" :lg="9" :xl="10" >
+          <question-expresscopy class="question-expresscopy-container" :selectedQuestion="selectedQuestion" ></question-expresscopy>
+
       </el-col>
 
   </el-row>
 </template>
 
 <style scoped>
-
+.question-uploader-container{
+  margin-left:40px;
+  width:550px;
+  margin-top:15px;
+}
+.question-expresscopy-container{
+  margin-left:30px;
+  width:100%;
+  margin-top:0px;
+  padding-top:20px;
+}
 </style>
