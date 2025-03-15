@@ -55,7 +55,6 @@
           <img :src="question.imgurl" alt="题目图片"/>
           <div class="answers">
             <div class="math-content" ref="textContent" v-html="convertToInlineMath(question.text)"></div>
-            <div class="math-content" ref="answerContent" v-html="convertToInlineMath(question.answer)"></div>
           </div>
             
         </label>
@@ -267,7 +266,7 @@ export default {
   margin-top:10px;
   resize: none;
   width: 100%;
-  height:320px;
+  height:310px;
   max-width: 680px;
   background-color:rgba(60, 67, 75, 0.66);
   color:white;

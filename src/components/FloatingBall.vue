@@ -36,7 +36,7 @@
       </el-popover>
     </div>
     <div class="prop">
-      <el-popover v-model:visible="showPopup1"  effect="light" trigger="manual" width="350">
+      <el-popover v-model:visible="showPopup1"  effect="light" trigger="manual" width="500">
         <template #default>
           <p>为您推荐：</p>
           <ul class="recommend-item">
@@ -45,6 +45,19 @@
               {{ book.title }}
             </li>
           </ul>
+          <div class="recommend-list">
+            <p class="p1">您的数学基础知识有点薄弱，在
+              <span class="p2">指数运算法则、分数的基本性质、有理数的乘方</span> 
+            等初中数学知识点上有所缺陷。</p>
+            <p class="p1">建议您优先巩固基础知识，可以通过以上推荐的数学习题练习，或者通过一些
+              适合中学生的学习网站进行学习。以下是一些推荐学习网站：</p>
+            <ul class="recommend-item1">
+              <li class="web-item" v-for="web in webs" :key="web.id">
+                {{ web.id }}、{{ web.name }}：{{ web.url }}
+              </li>
+            </ul>
+            <p class="p1">希望对您有所帮助！有任何问题可以随时咨询我~</p>
+          </div>
           <button class="close-btn" @click="closePopup1">我知道了</button>
         </template>
         <!-- 触发按钮 -->
@@ -94,6 +107,12 @@ const recommendedExercises = ref([
   { id: 1, title: "《5·3初中数学》",imgUrl:"/static/数学书/数学1.jpeg" },
   { id: 2, title: "《初中必刷题(数学)》",imgUrl:"/static/数学书/数学2.jpg" },
   { id: 3, title: "《步步通优(数学)》",imgUrl:"/static/数学书/数学3.jpeg" },
+]);
+const webs=ref([
+  {id:1,name:"洋葱学院",url:"https://www.yangcong345.com"},
+  {id:2,name:"学而思网校",url:"https://www.xueersi.com"},
+  {id:3,name:"猿辅导",url:"https://www.yuanfudao.com"},
+
 ]);
 const route = useRoute();
 // 监听 route.path，保证每次进入 "/index/tts_test" 都触发弹窗
@@ -239,6 +258,18 @@ const hideBall = () => {
 </script>
 
 <style scoped>
+.recommend-list{
+  border-top: 1px solid #ddd;
+  padding-bottom:10px;
+  padding-top:10px;
+  .p2{
+    padding-bottom:10px;
+    text-decoration: underline;
+  }
+  .p1{
+    margin-bottom:5px;
+  }
+}
 .floating-ball {
   position: fixed;
   background-size: cover;
@@ -255,7 +286,8 @@ const hideBall = () => {
   border:none;
   position:absolute;
   right:20px;
-  bottom:10px;
+  bottom:-5px;
+  padding-bottom:10px;
   text-decoration: underline;
 }
 :deep .el-popover{
@@ -269,7 +301,7 @@ const hideBall = () => {
   margin-top:10px;
   align-items: center;
   justify-content: center;
-  padding-bottom:20px;
+  padding-bottom:10px;
   .book-item{
     display: flex;
     flex-direction: column;

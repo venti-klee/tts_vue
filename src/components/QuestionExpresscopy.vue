@@ -1,6 +1,7 @@
 <script>
 import {onMounted, ref, watch} from 'vue';
 import OpenAI from "openai";
+import VirtualAvatarSelectorcopy from "@/components/VirtualAvatarSelectorcopy.vue";
 
 // 初始化OpenAI客户端
 const openai = new OpenAI({
@@ -11,7 +12,9 @@ const openai = new OpenAI({
 
 export default {
   props: ['selectedQuestion'],
+  components: { VirtualAvatarSelectorcopy },
   setup(props) {
+    const selectedAvatarIndex = ref(0);
     const messages = ref([]); // 存储整个对话历史
     const newMessage = ref(''); // 用户输入的消息
     // eslint-disable-next-line no-unused-vars
@@ -143,8 +146,6 @@ export default {
       }
     };
 
-
-
     // 将公网URL转换为Base64格式（如果需要）
     const fetchToBase64 = async (url) => {
       const response = await fetch(url);
@@ -179,6 +180,7 @@ export default {
       messages,
       newMessage,
       sendMessage,
+      selectedAvatarIndex,
     };
   }
 };
@@ -217,10 +219,25 @@ export default {
         <p>请选择一道错题</p>
       </div>
     </div>
-
+    <el-popover  effect="light" trigger="click" width="500" style="padding:0;">
+      <template #default>
+        <virtual-avatar-selectorcopy v-model="selectedAvatarIndex"/>
+      </template>
+      <!-- 触发按钮 -->
+      <template #reference>
+        <!-- 设置 -->
+        <img src="/static/设置.png" alt="pic" class="img1">
+      </template>
+    </el-popover>
 </template>
 
 <style scoped>
+.img1{
+  width:20px;
+  height:20px;
+  margin-top:10px;
+  margin-left:520px;
+}
 .content{
   width:100%;
   height:100%;
@@ -241,7 +258,7 @@ export default {
   margin-top:10px;
   resize: none;
   width: 107%;
-  height:610px;
+  height:600px;
   max-width: 680px;
   background-color:rgba(60, 67, 75, 0.66);
   color:white;
@@ -276,7 +293,7 @@ export default {
   }
 }
 .up{
-  height: 570px !important;
+  height: 560px !important;
   display: flex;
   flex-direction: column;
 }

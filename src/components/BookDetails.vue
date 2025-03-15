@@ -56,15 +56,6 @@
       </el-popover>
     </div>
 
-    <!-- 推荐词典 -->
-    <!-- <div class="recommendations">
-      <p>为您推荐：</p>
-      <ul class="recommed-item">
-        <li v-for="book in recommendedBooks" :key="book.id">
-          《{{ book.title }}》
-        </li>
-      </ul>
-    </div> -->
   </div>
 </template>
 
