@@ -121,14 +121,14 @@ watchEffect(() => {
   if (route.path === "/index/tts_test") {
     setTimeout(() => {
       showPopup.value = true;
-    }, 15000); // 5秒后弹出
+    }, 40000); // 15秒后弹出
   } else {
     showPopup.value = false; // 进入其他页面时自动关闭弹窗
   }
   if (route.path === "/index/tts_teacher") {
     setTimeout(() => {
       showPopup1.value = true;
-    }, 15000); // 5秒后弹出
+    }, 25000); // 25秒后弹出
   } else {
     showPopup1.value = false; // 进入其他页面时自动关闭弹窗
   }
@@ -143,7 +143,8 @@ const closePopup1 = () => {
 
 const size = 120; // 悬浮球大小
 const imageUrl = "/static/robot.png"; // 图片路径
-const embedUrl = "https://kimi.moonshot.cn/chat/cv810pvftaeb3nbvc7og"; // 内嵌网页链接
+//const embedUrl = "https://kimi.moonshot.cn/chat/cv810pvftaeb3nbvc7og"; // 内嵌网页链接
+const embedUrl = "http://192.168.43.142:3000/"; // 内嵌网页链接
 const drawerVisible = ref(false);
 const top = ref(670); // 初始距离顶部的距离
 const left = ref(20); // 初始距离左侧的距离

@@ -8,7 +8,7 @@
       </el-header>
       <el-main>
         <video ref="videoPlayer" width="100%" controls>
-          <source :src="videoSrc" type="video/mp4">
+          <source src="../assets/static/vtuber.mp4" type="video/mp4" >
           Your browser does not support the video tag.
         </video>
       </el-main>
@@ -86,6 +86,17 @@ export default {
 </script>
 
 <style scoped>
+:deep .el-main{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+video{
+  max-width:1120px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
 .goback-img{
   width: 45px;
   height:40px;

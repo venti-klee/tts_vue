@@ -106,7 +106,11 @@ const handleSuccess =  async () => {
       throw new Error('❌ 加载失败');
     }
     const text = await response.text();
-    teachingContent.value = translatedContent.value = text;
+    // teachingContent.value = translatedContent.value = text;
+    teachingContent.value = text;
+    setTimeout(() => {
+        translatedContent.value = text;
+    }, 4000); 
   } catch (error) {
     console.error('❌ 读取本地文本失败:', error);
   }

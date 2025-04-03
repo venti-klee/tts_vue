@@ -26,7 +26,7 @@ const generateAudio = () => {
             router.push({ name: 'ppt_video' }, { replace: true });
         } else if (['mp3', 'm4v', 'wav'].includes(fileType)) {
             // 如果是音频文件，则赋值音频路径
-            audioSrc.value = "/static/audio1.wav";
+            audioSrc.value = "/static/操作系统替换.wav";
         } else {
             alert("请上传正确格式的音频或视频文件！");
         }

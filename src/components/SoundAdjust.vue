@@ -135,34 +135,30 @@ const languages = ref([
   { value: '韩语', label: '韩语' }
 ]);
 const emotions = ref([
-  { value: 'happy', label: '快乐' },
-  { value: 'sad', label: '悲伤' },
-  { value: 'angry', label: '愤怒' },
-  { value: 'fear', label: '恐惧' },
-  { value: 'surprise', label: '惊讶' },
-  { value: 'disgust', label: '厌恶' },
-  { value: 'neutral', label: '中性' },
-  // 其他情感选项...
+  { value: '快乐', label: '快乐' },
+  { value: '悲伤', label: '悲伤' },
+  { value: '愤怒', label: '愤怒' },
+  { value: '恐惧', label: '恐惧' },
+  { value: '惊讶', label: '惊讶' },
+  { value: '厌恶', label: '厌恶' },
+  { value: '中性', label: '中性' },
 ]);
 const pitches = ref([
-  { value: 'normal', label: '普通' },
-  { value: 'low', label: '低' },
-  { value: 'verylow', label: '很低' },
-  { value: 'high', label: '高' },
-  { value: 'veryhigh', label: '很高' },
-
-  // 其他音调选项...
+  { value: '普通', label: '普通' },
+  { value: '低', label: '低' },
+  { value: '很低', label: '很低' },
+  { value: '高', label: '高' },
+  { value: '很高', label: '很高' },
 ]);
 const styles = ref([
-  { value: 'soft', label: '抒情' },
-  { value: 'formal', label: '正式' },
-  { value: 'professional', label: '专业' },
-  { value: 'conversational', label: '聊天' },
-  { value: 'humorous', label: '幽默' },
-  { value: 'technical', label: '技术讲解' },
-  { value: 'warn', label: '温暖亲切' },
-  { value: 'dramatic', label: '戏剧性' },
-  // 其他风格选项...
+  { value: '抒情', label: '抒情' },
+  { value: '正式', label: '正式' },
+  { value: '专业', label: '专业' },
+  { value: '聊天', label: '聊天' },
+  { value: '幽默', label: '幽默' },
+  { value: '技术讲解', label: '技术讲解' },
+  { value: '温暖亲切', label: '温暖亲切' },
+  { value: '戏剧性', label: '戏剧性' },
 ]);
 
 const audioSettings = ref({

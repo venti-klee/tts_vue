@@ -73,8 +73,8 @@ import parseSrt from 'parse-srt';
 import { useRouter } from 'vue-router';
 
 // 定义音频和字幕文件路径，假设文件位于 public 文件夹内
-const audioSrc = '/static/pdf/sft_output_1600字.wav'; // 确保此路径指向 public 文件夹内的文件
-const srtSrc = '/static/pdf/sft_output_1600字.srt';   // 同上
+const audioSrc = '/static/pdf/马原.wav'; // 确保此路径指向 public 文件夹内的文件
+const srtSrc = '/static/pdf/马原.srt';   // 同上
 
 // 音频播放器引用
 const audioPlayer = ref(null);

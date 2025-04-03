@@ -8,7 +8,7 @@
       
       <!-- 虚拟形象容器，包含所有虚拟形象 -->
       <div class="avatars-container" ref="avatarsContainer">
-        <!-- 循环渲染虚拟形象 -->- 
+        <!-- 循环渲染虚拟形象 -->
         <div
             v-for="(avatar, index) in avatars"
             :key="index"
